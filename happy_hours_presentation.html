@@ -1,0 +1,1491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Hours Peanut Butter - GTM Strategy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;1,9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <style>
+    :root {
+      --bg-warm: #FBF8F3;
+      --bg-card: #FFFFFF;
+      --bg-cream: #F5EFE6;
+      --text-dark: #2B2623;
+      --text-muted: #6E675F;
+      --text-light: #9B948B;
+      
+      /* Refined Pastel Brand Accents */
+      --pastel-coral: #FF7E67;
+      --pastel-coral-light: #FFE8E4;
+      --pastel-blue: #5C95FF;
+      --pastel-blue-light: #EBF2FF;
+      --pastel-yellow: #F6C843;
+      --pastel-yellow-light: #FFF8E1;
+      --pastel-green: #48BB78;
+      --pastel-green-light: #E8F7EE;
+      --pastel-pink: #F472B6;
+      --pastel-pink-light: #FCE7F3;
+      
+      --border-subtle: rgba(43, 38, 35, 0.1);
+      --border-medium: rgba(43, 38, 35, 0.16);
+      --shadow-soft: 0 10px 30px -6px rgba(43, 38, 35, 0.07), 0 4px 12px -2px rgba(43, 38, 35, 0.04);
+      --shadow-lift: 0 16px 36px -8px rgba(43, 38, 35, 0.12), 0 6px 16px -3px rgba(43, 38, 35, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #ECE5DA;
+      display: grid;
+      gap: 36px;
+      grid-template-columns: 1fr;
+      min-height: 100vh;
+      padding: 36px 0;
+      place-items: center;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: var(--text-dark);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Fixed slide presentation canvas */
+    .slide-container {
+      width: 1280px;
+      height: 720px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      padding: 38px 46px;
+      border-radius: 28px;
+      background-color: var(--bg-warm);
+      box-shadow: 0 24px 60px rgba(43, 38, 35, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+    }
+
+    .slide-container::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: 
+        radial-gradient(circle at 12% 16%, rgba(246, 200, 67, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 88% 85%, rgba(92, 149, 255, 0.10) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(255, 126, 103, 0.06) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .slide-container > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Slide Typography */
+    h1, h2, h3, h4 {
+      font-family: 'Outfit', sans-serif;
+      color: var(--text-dark);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .serif-accent {
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-style: italic;
+    }
+
+    /* Slide Header System */
+    .slide-header {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 22px;
+    }
+
+    .header-left {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .slide-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      width: fit-content;
+    }
+
+    .pill-coral { background: var(--pastel-coral-light); color: #C2410C; }
+    .pill-blue  { background: var(--pastel-blue-light);  color: #1D4ED8; }
+    .pill-green { background: var(--pastel-green-light); color: #15803D; }
+    .pill-yellow{ background: var(--pastel-yellow-light);color: #B45309; }
+    .pill-pink  { background: var(--pastel-pink-light);  color: #BE185D; }
+
+    .slide-title {
+      font-size: 32px;
+      line-height: 1.15;
+      font-weight: 800;
+    }
+
+    .content-area {
+      width: 100%;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* Standard Card Component */
+    .warm-card {
+      background: var(--bg-card);
+      border-radius: 20px;
+      padding: 22px;
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.2s ease;
+    }
+
+    #slide1 {
+      padding: 0;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      overflow: hidden;
+    }
+
+    .hero-left-pane {
+      padding: 56px 54px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .hero-right-pane {
+      background: linear-gradient(135deg, #FFF6E9 0%, #F5ECDF 100%);
+      border-left: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 40px;
+    }
+
+    .hero-title {
+      font-size: 60px;
+      line-height: 1.02;
+      font-weight: 800;
+      margin-top: 18px;
+      margin-bottom: 18px;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-tagline {
+      font-size: 20px;
+      color: var(--text-muted);
+      line-height: 1.45;
+      max-width: 500px;
+    }
+
+    .brand-features-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .feature-chip {
+      background: #FFFFFF;
+      border: 1px solid var(--border-medium);
+      padding: 10px 16px;
+      border-radius: 100px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+
+    .whitespace-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      height: 100%;
+      align-items: stretch;
+    }
+
+    .map-container-card {
+      background: #FFFFFF;
+      border-radius: 20px;
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-soft);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .location-chips-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .loc-badge {
+      background: var(--bg-warm);
+      border: 1px solid var(--border-subtle);
+      padding: 8px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .loc-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--pastel-coral);
+    }
+
+    .sku-center-stage {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 32px;
+      height: 100%;
+      padding-bottom: 8px;
+    }
+
+    .sku-stage-column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 340px;
+      background: #FFFFFF;
+      border-radius: 24px;
+      padding: 24px 20px 20px;
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+    }
+
+    .sku-stage-column.featured {
+      background: #FFFDF9;
+      border: 2px solid var(--pastel-yellow);
+      box-shadow: var(--shadow-lift);
+      transform: translateY(-8px);
+    }
+
+    .sku-jar-display {
+      height: 220px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      margin-bottom: 18px;
+      position: relative;
+      width: 100%;
+    }
+
+    .price-pill-tag {
+      background: var(--text-dark);
+      color: #FFFFFF;
+      padding: 6px 14px;
+      border-radius: 100px;
+      font-size: 18px;
+      font-weight: 700;
+      font-family: 'Outfit', sans-serif;
+      margin-bottom: 10px;
+    }
+
+    .roadmap-track-wrapper {
+      position: relative;
+      width: 100%;
+      height: 480px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+    }
+
+    .roadmap-straight-line {
+      position: absolute;
+      top: 50%;
+      left: 60px;
+      right: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, #F6C843 0%, #FF7E67 50%, #48BB78 100%);
+      border-radius: 4px;
+      z-index: 1;
+    }
+
+    .roadmap-flavor-station {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 210px;
+      text-align: center;
+    }
+
+    .roadmap-node-circle {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      border: 4px solid var(--pastel-coral);
+      margin: 12px 0;
+      box-shadow: 0 0 0 4px rgba(255, 126, 103, 0.2);
+    }
+
+    .flavor-visual-cluster {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ingredient-backdrop {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+      opacity: 0.9;
+    }
+
+    .flavor-jar-front {
+      position: relative;
+      z-index: 2;
+      filter: drop-shadow(0 8px 16px rgba(0,0,0,0.12));
+    }
+
+    .blueprint-stage {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr 1.2fr;
+      align-items: center;
+      gap: 20px;
+      height: 100%;
+      position: relative;
+    }
+
+    .center-giant-jar {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .blueprint-callout-card {
+      background: #FFFFFF;
+      border-radius: 16px;
+      padding: 16px 18px;
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      margin-bottom: 18px;
+    }
+
+    .blueprint-callout-card:last-child {
+      margin-bottom: 0;
+    }
+
+    .radar-distro-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr 1fr;
+      gap: 22px;
+      align-items: center;
+      height: 100%;
+    }
+
+    .radar-center-pod {
+      background: #FFFFFF;
+      border-radius: 24px;
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-soft);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      height: 480px;
+    }
+
+    .radar-svg-ring {
+      position: relative;
+      width: 260px;
+      height: 260px;
+      margin: 10px 0;
+    }
+
+    .horizontal-channel-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .channel-cool-card {
+      background: #FFFFFF;
+      border-radius: 20px;
+      padding: 18px 20px;
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .funnel-pastel-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+      height: 100%;
+    }
+
+    .funnel-pastel-card {
+      background: #FFFFFF;
+      border-radius: 22px;
+      padding: 22px 20px;
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .funnel-illustration-box {
+      height: 150px;
+      width: 100%;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    ul.warm-bullet-list {
+      list-style: none;
+      margin-top: 10px;
+    }
+
+    ul.warm-bullet-list li {
+      position: relative;
+      padding-left: 20px;
+      font-size: 13.5px;
+      line-height: 1.5;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+
+    ul.warm-bullet-list li::before {
+      content: '•';
+      position: absolute;
+      left: 6px;
+      top: -1px;
+      color: var(--pastel-coral);
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       SLIDE 1: Title & Strategic Brand Positioning
+       ============================================================ -->
+  <div class="slide-container" id="slide1">
+    <div class="hero-left-pane">
+      <div>
+        <div class="slide-pill pill-coral">
+          <i class="fa-solid fa-sparkles"></i> Everyday Family Nutrition
+        </div>
+        <h1 class="hero-title">
+          Happy Hours<br>
+          <span class="serif-accent" style="color: var(--pastel-coral);">Peanut Butter</span>
+        </h1>
+        <p class="hero-tagline">
+          The wholesome, accessible spread crafted for real breakfast tables, school lunchboxes, and pantry favorites across everyday India.
+        </p>
+      </div>
+
+      <div>
+        <div style="background: rgba(255,255,255,0.7); border: 1px solid var(--border-subtle); padding: 16px 20px; border-radius: 16px; margin-bottom: 20px; backdrop-filter: blur(4px);">
+          <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-light); margin-bottom: 4px;">Strategic Core Mission</div>
+          <p style="font-size: 14.5px; line-height: 1.45; color: var(--text-dark);">
+            Bridging the gap between elite high-cost fitness spreads and overly sugary preserves with clean, accessible protein for real households.
+          </p>
+        </div>
+
+        <div class="brand-features-row">
+          <div class="feature-chip">
+            <i class="fa-solid fa-seedling" style="color: var(--pastel-green);"></i> 100% Clean Roasted Peanuts
+          </div>
+          <div class="feature-chip">
+            <i class="fa-solid fa-ban" style="color: var(--pastel-coral);"></i> Zero Palm Oil / Stabilizers
+          </div>
+          <div class="feature-chip">
+            <i class="fa-solid fa-wallet" style="color: var(--pastel-blue);"></i> Magic ₹99 Adoption SKU
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-right-pane">
+      <!-- Illustrated Warm Jar Art -->
+      <svg width="240" height="320" viewBox="0 0 240 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Jar Shadow -->
+        <ellipse cx="120" cy="305" rx="85" ry="12" fill="rgba(43,38,35,0.08)"/>
+        <!-- Glass Body -->
+        <rect x="40" y="70" width="160" height="230" rx="36" fill="#FFFFFF" stroke="#2B2623" stroke-width="3"/>
+        <!-- Peanut Butter Fill -->
+        <rect x="46" y="90" width="148" height="202" rx="28" fill="#E8B068"/>
+        <path d="M46 140 C80 130, 160 150, 194 135 L194 280 C194 292, 184 300, 172 300 L68 300 C56 300, 46 292, 46 280 Z" fill="#D89A50"/>
+        <!-- Label Area -->
+        <rect x="52" y="125" width="136" height="120" rx="16" fill="#FBF8F3" stroke="#2B2623" stroke-width="2.5"/>
+        <rect x="62" y="137" width="116" height="26" rx="6" fill="#FF7E67"/>
+        <text x="120" y="154" fill="#FFFFFF" font-family="Outfit" font-size="12" font-weight="800" text-anchor="middle" letter-spacing="1">HAPPY HOURS</text>
+        <text x="120" y="180" fill="#2B2623" font-family="Outfit" font-size="14" font-weight="800" text-anchor="middle">CREAMY</text>
+        <text x="120" y="196" fill="#786F66" font-family="Plus Jakarta Sans" font-size="9" font-weight="600" text-anchor="middle">100% CLEAN PEANUTS</text>
+        <line x1="72" y1="210" x2="168" y2="210" stroke="#E5DCCE" stroke-width="1.5"/>
+        <text x="120" y="226" fill="#2B2623" font-family="Outfit" font-size="11" font-weight="700" text-anchor="middle">FAMILY TRIAL • ₹99</text>
+        <!-- Lid -->
+        <rect x="58" y="32" width="124" height="40" rx="10" fill="#5C95FF" stroke="#2B2623" stroke-width="3"/>
+        <line x1="70" y1="42" x2="70" y2="62" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+        <line x1="85" y1="42" x2="85" y2="62" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+        <line x1="100" y1="42" x2="100" y2="62" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+      </svg>
+
+      <!-- Soft floating sticker badges -->
+      <div style="margin-top: 24px; display: flex; gap: 10px;">
+        <span class="slide-pill pill-yellow" style="box-shadow: 0 4px 12px rgba(0,0,0,0.06);">
+          <i class="fa-solid fa-heart" style="color: #FF7E67;"></i> Chennai Launch
+        </span>
+        <span class="slide-pill pill-green" style="box-shadow: 0 4px 12px rgba(0,0,0,0.06);">
+          <i class="fa-solid fa-check"></i> 26g Protein
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SLIDE 2: Target Market & Chennai Corridors (with Map SVG)
+       ============================================================ -->
+  <div class="slide-container" id="slide2">
+    <div class="slide-header">
+      <div class="header-left">
+        <div class="slide-pill pill-blue">Market Whitespace &amp; Launch Corridors</div>
+        <h2 class="slide-title">Beyond the Fitness Niche: The Everyday Opportunity</h2>
+      </div>
+      <div class="slide-pill pill-coral">
+        <i class="fa-solid fa-location-dot"></i> Chennai Core Corridors
+      </div>
+    </div>
+
+    <div class="content-area">
+      <div class="whitespace-layout">
+        <!-- Left: Strategic Incumbent vs Happy Hours breakdown -->
+        <div style="display: flex; flex-direction: column; justify-content: space-between; gap: 16px;">
+          <!-- Incumbent Gap Card -->
+          <div class="warm-card" style="border-left: 4px solid var(--pastel-coral); padding: 18px 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span class="slide-pill pill-coral">The Incumbents</span>
+              <span style="font-size: 11px; color: var(--text-light); font-weight: 600;">Pintola • Alpino • Sundrop • Kissan</span>
+            </div>
+            <h3 style="font-size: 18px; margin-bottom: 6px;">Narrow Digital &amp; Gym Enthusiast Focus</h3>
+            <p style="font-size: 13.5px; color: var(--text-muted); line-height: 1.45;">
+              Incumbent brands prioritize high-gram bodybuilding consumers on marketplaces, largely abandoning high-frequency neighbourhood retail, school lunchbox occasions, and affordable trial options.
+            </p>
+          </div>
+
+          <!-- Happy Hours Solution Card -->
+          <div class="warm-card" style="border-left: 4px solid var(--pastel-green); padding: 18px 20px; background: #F8FAF7;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span class="slide-pill pill-green">The Happy Hours Wedge</span>
+              <span style="font-size: 11px; color: #15803D; font-weight: 700;">Clean &amp; Accessible</span>
+            </div>
+            <h3 style="font-size: 18px; margin-bottom: 6px;">The Family-First Spread for Every Home</h3>
+            <p style="font-size: 13.5px; color: var(--text-muted); line-height: 1.45;">
+              Positioned directly at the intersection of wholesome clean ingredients and pantry-friendly everyday pricing — appealing to school parents and busy working couples.
+            </p>
+          </div>
+
+          <!-- Target Criteria Summary -->
+          <div class="warm-card" style="padding: 16px 20px; background: var(--pastel-yellow-light); border: 1px solid rgba(246, 200, 67, 0.4);">
+            <div style="font-size: 12px; font-weight: 800; color: #92400E; margin-bottom: 4px;">
+              <i class="fa-solid fa-bullseye"></i> LOCATION CRITERIA
+            </div>
+            <p style="font-size: 12.5px; color: #78350F; line-height: 1.4;">
+              Selected for dense middle-income residential colonies, heavy school-commute corridors, and complete 10-minute Quick Commerce dark store delivery saturation.
+            </p>
+          </div>
+        </div>
+
+        <!-- Right: Chennai Vector Map Card -->
+        <div class="map-container-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <span style="font-size: 13px; font-weight: 700; color: var(--text-dark);">
+              <i class="fa-solid fa-map-location-dot" style="color: var(--pastel-blue);"></i> Chennai Priority Corridors
+            </span>
+            <span class="slide-pill pill-blue">5 Target Clusters</span>
+          </div>
+
+          <!-- Stylized Chennai Coastal Map SVG -->
+          <div style="flex-grow: 1; display: flex; align-items: center; justify-content: center; position: relative;">
+            <svg width="420" height="280" viewBox="0 0 420 280" fill="none" xmlns="http://www.w3.org/2000/svg" style="border-radius: 12px; background: #F4F7FB;">
+              <!-- Bay of Bengal Coastline (Right Side) -->
+              <path d="M330 0 C325 70, 310 140, 335 220 C345 250, 340 280, 340 280 L420 280 L420 0 Z" fill="#E2EDF9"/>
+              <text x="375" y="140" fill="#7BA4CE" font-size="10" font-weight="700" letter-spacing="2" transform="rotate(90 375 140)">BAY OF BENGAL</text>
+
+              <!-- Main Arterial Road Network -->
+              <path d="M70 40 Q180 80 300 90" stroke="#E2DCD2" stroke-width="2.5" stroke-dasharray="4 4"/>
+              <path d="M120 250 Q200 180 310 160" stroke="#E2DCD2" stroke-width="2.5" stroke-dasharray="4 4"/>
+              <path d="M180 30 Q220 150 250 270" stroke="#E2DCD2" stroke-width="3" stroke-linecap="round"/>
+              <path d="M250 80 L300 130 L270 260" stroke="#D3C9BD" stroke-width="2"/>
+
+              <!-- 1. Madhavaram (North) -->
+              <g transform="translate(190, 45)">
+                <circle cx="0" cy="0" r="14" fill="rgba(255, 126, 103, 0.18)"/>
+                <circle cx="0" cy="0" r="6" fill="#FF7E67" stroke="#FFFFFF" stroke-width="2"/>
+                <rect x="12" y="-12" width="90" height="22" rx="6" fill="#FFFFFF" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.08))"/>
+                <text x="18" y="3" fill="#2B2623" font-size="10" font-weight="700" font-family="Plus Jakarta Sans">Madhavaram</text>
+              </g>
+
+              <!-- 2. Anna Nagar (Central West) -->
+              <g transform="translate(160, 105)">
+                <circle cx="0" cy="0" r="16" fill="rgba(92, 149, 255, 0.22)"/>
+                <circle cx="0" cy="0" r="6" fill="#5C95FF" stroke="#FFFFFF" stroke-width="2"/>
+                <rect x="-85" y="-12" width="76" height="22" rx="6" fill="#FFFFFF" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.08))"/>
+                <text x="-80" y="3" fill="#2B2623" font-size="10" font-weight="700" font-family="Plus Jakarta Sans">Anna Nagar</text>
+              </g>
+
+              <!-- 3. Porur (West Hub) -->
+              <g transform="translate(110, 155)">
+                <circle cx="0" cy="0" r="14" fill="rgba(246, 200, 67, 0.25)"/>
+                <circle cx="0" cy="0" r="6" fill="#F6C843" stroke="#FFFFFF" stroke-width="2"/>
+                <rect x="-56" y="-12" width="48" height="22" rx="6" fill="#FFFFFF" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.08))"/>
+                <text x="-50" y="3" fill="#2B2623" font-size="10" font-weight="700" font-family="Plus Jakarta Sans">Porur</text>
+              </g>
+
+              <!-- 4. Velachery (South IT Corridor) -->
+              <g transform="translate(260, 180)">
+                <circle cx="0" cy="0" r="18" fill="rgba(72, 187, 120, 0.25)"/>
+                <circle cx="0" cy="0" r="7" fill="#48BB78" stroke="#FFFFFF" stroke-width="2"/>
+                <rect x="14" y="-12" width="70" height="22" rx="6" fill="#FFFFFF" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.08))"/>
+                <text x="20" y="3" fill="#2B2623" font-size="10" font-weight="700" font-family="Plus Jakarta Sans">Velachery</text>
+              </g>
+
+              <!-- 5. Tambaram (South Suburb) -->
+              <g transform="translate(180, 235)">
+                <circle cx="0" cy="0" r="14" fill="rgba(244, 114, 182, 0.22)"/>
+                <circle cx="0" cy="0" r="6" fill="#F472B6" stroke="#FFFFFF" stroke-width="2"/>
+                <rect x="12" y="-12" width="76" height="22" rx="6" fill="#FFFFFF" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.08))"/>
+                <text x="18" y="3" fill="#2B2623" font-size="10" font-weight="700" font-family="Plus Jakarta Sans">Tambaram</text>
+              </g>
+            </svg>
+          </div>
+
+          <div class="location-chips-grid">
+            <div class="loc-badge"><div class="loc-dot" style="background:#5C95FF;"></div> Anna Nagar</div>
+            <div class="loc-badge"><div class="loc-dot" style="background:#48BB78;"></div> Velachery</div>
+            <div class="loc-badge"><div class="loc-dot" style="background:#F472B6;"></div> Tambaram</div>
+            <div class="loc-badge"><div class="loc-dot" style="background:#F6C843;"></div> Porur</div>
+            <div class="loc-badge"><div class="loc-dot" style="background:#FF7E67;"></div> Madhavaram</div>
+            <div class="loc-badge" style="background: var(--pastel-blue-light); color: #1D4ED8;"><i class="fa-solid fa-truck-fast"></i> Quick-Com 100%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SLIDE 3: SKU & Pricing Architecture (Jars in the Center)
+       ============================================================ -->
+  <div class="slide-container" id="slide3">
+    <div class="slide-header">
+      <div class="header-left">
+        <div class="slide-pill pill-yellow">Product &amp; Pricing Architecture</div>
+        <h2 class="slide-title">Form Factors Engineered for Every Kitchen &amp; Occasion</h2>
+      </div>
+      <div class="slide-pill pill-coral">
+        Zero Friction Trial to Pantry Dominance
+      </div>
+    </div>
+
+    <div class="content-area">
+      <div class="sku-center-stage">
+        <!-- SKU 1: 30g Sachet / Mini Trial Pouch -->
+        <div class="sku-stage-column">
+          <span class="slide-pill pill-coral" style="margin-bottom: 12px;">Zero Risk Trial</span>
+          
+          <div class="sku-jar-display">
+            <!-- Illustrated 30g Sachet Pouch SVG -->
+            <svg width="100" height="150" viewBox="0 0 100 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="15" y="10" width="70" height="130" rx="10" fill="#FFF5EB" stroke="#2B2623" stroke-width="2.5"/>
+              <path d="M15 25 L85 25" stroke="#2B2623" stroke-width="2" stroke-dasharray="3 3"/>
+              <circle cx="50" cy="18" r="3" fill="#2B2623"/>
+              <rect x="22" y="45" width="56" height="70" rx="8" fill="#FF7E67"/>
+              <text x="50" y="65" fill="#FFFFFF" font-family="Outfit" font-size="8" font-weight="800" text-anchor="middle">HAPPY HOURS</text>
+              <text x="50" y="80" fill="#FFFFFF" font-family="Plus Jakarta Sans" font-size="10" font-weight="800" text-anchor="middle">30g TRIAL</text>
+              <rect x="30" y="92" width="40" height="14" rx="4" fill="#FFFFFF"/>
+              <text x="50" y="102" fill="#2B2623" font-family="Outfit" font-size="8" font-weight="700" text-anchor="middle">₹15 – ₹20</text>
+            </svg>
+          </div>
+
+          <div class="price-pill-tag">₹15 – ₹20</div>
+          <h3 style="font-size: 19px; margin-bottom: 4px;">30g Trial Sachet</h3>
+          <p style="font-size: 12.5px; color: var(--text-muted); text-align: center; margin-bottom: 12px;">Sampling catalyst for morning milk &amp; bread delivery drops.</p>
+
+          <ul class="warm-bullet-list" style="width: 100%;">
+            <li>Free bundle with morning bread &amp; eggs</li>
+            <li>Zero friction neighborhood taste-test</li>
+            <li>QR code on back triggers 10% next buy</li>
+          </ul>
+        </div>
+
+        <!-- SKU 2: 200g Impulse Hero Jar (Centered & Featured) -->
+        <div class="sku-stage-column featured">
+          <div style="position: absolute; top: -14px; background: var(--pastel-coral); color: #FFFFFF; font-size: 11px; font-weight: 800; padding: 4px 14px; border-radius: 100px; box-shadow: 0 4px 10px rgba(255,126,103,0.3);">
+            ⭐ THE HERO IMPULSE SKU
+          </div>
+
+          <span class="slide-pill pill-yellow" style="margin-bottom: 8px; margin-top: 6px;">Desk &amp; Tiffin Hero</span>
+
+          <div class="sku-jar-display">
+            <!-- Illustrated 200g Jar SVG -->
+            <svg width="150" height="200" viewBox="0 0 150 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="75" cy="190" rx="55" ry="8" fill="rgba(43,38,35,0.06)"/>
+              <rect x="25" y="45" width="100" height="145" rx="24" fill="#FFFFFF" stroke="#2B2623" stroke-width="2.5"/>
+              <rect x="30" y="60" width="90" height="122" rx="18" fill="#E8B068"/>
+              <!-- Label -->
+              <rect x="35" y="80" width="80" height="82" rx="12" fill="#FBF8F3" stroke="#2B2623" stroke-width="2"/>
+              <rect x="42" y="88" width="66" height="18" rx="4" fill="#5C95FF"/>
+              <text x="75" y="100" fill="#FFFFFF" font-family="Outfit" font-size="8" font-weight="800" text-anchor="middle">HAPPY HOURS</text>
+              <text x="75" y="120" fill="#2B2623" font-family="Outfit" font-size="12" font-weight="800" text-anchor="middle">200g POCKET</text>
+              <rect x="48" y="130" width="54" height="18" rx="6" fill="#F6C843"/>
+              <text x="75" y="143" fill="#2B2623" font-family="Outfit" font-size="11" font-weight="800" text-anchor="middle">MAGIC ₹99</text>
+              <!-- Lid -->
+              <rect x="36" y="20" width="78" height="28" rx="8" fill="#F6C843" stroke="#2B2623" stroke-width="2.5"/>
+            </svg>
+          </div>
+
+          <div class="price-pill-tag" style="background: var(--pastel-coral);">MAGIC ₹99</div>
+          <h3 style="font-size: 21px; margin-bottom: 4px;">200g Pocket Pack</h3>
+          <p style="font-size: 12.5px; color: var(--text-muted); text-align: center; margin-bottom: 12px;">Psychological sub-₹100 sweet spot for high volume quick-com orders.</p>
+
+          <ul class="warm-bullet-list" style="width: 100%;">
+            <li>Fits kids' school lunch bags seamlessly</li>
+            <li>Office workstation clean protein snack</li>
+            <li>Top impulse conversion on Zepto &amp; Blinkit</li>
+          </ul>
+        </div>
+
+        <!-- SKU 3: 350g Family Jar -->
+        <div class="sku-stage-column">
+          <span class="slide-pill pill-green" style="margin-bottom: 12px;">Pantry Anchor</span>
+
+          <div class="sku-jar-display">
+            <!-- Illustrated 350g Big Family Jar SVG -->
+            <svg width="170" height="220" viewBox="0 0 170 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="85" cy="208" rx="65" ry="9" fill="rgba(43,38,35,0.06)"/>
+              <rect x="20" y="40" width="130" height="165" rx="30" fill="#FFFFFF" stroke="#2B2623" stroke-width="2.5"/>
+              <rect x="26" y="55" width="118" height="142" rx="24" fill="#D89A50"/>
+              <!-- Label -->
+              <rect x="32" y="75" width="106" height="96" rx="14" fill="#FBF8F3" stroke="#2B2623" stroke-width="2"/>
+              <rect x="42" y="85" width="86" height="20" rx="4" fill="#48BB78"/>
+              <text x="85" y="99" fill="#FFFFFF" font-family="Outfit" font-size="9" font-weight="800" text-anchor="middle">HAPPY HOURS</text>
+              <text x="85" y="122" fill="#2B2623" font-family="Outfit" font-size="13" font-weight="800" text-anchor="middle">350g FAMILY</text>
+              <text x="85" y="140" fill="#9B948B" font-family="Plus Jakarta Sans" font-size="9" text-decoration="line-through" text-anchor="middle">MRP ₹200 – ₹220</text>
+              <rect x="48" y="146" width="74" height="16" rx="5" fill="#E8F7EE"/>
+              <text x="85" y="158" fill="#15803D" font-family="Outfit" font-size="10" font-weight="800" text-anchor="middle">OFFER ₹149</text>
+              <!-- Lid -->
+              <rect x="34" y="14" width="102" height="28" rx="8" fill="#48BB78" stroke="#2B2623" stroke-width="2.5"/>
+            </svg>
+          </div>
+
+          <div class="price-pill-tag" style="background: var(--pastel-green);">₹149 – ₹179</div>
+          <h3 style="font-size: 19px; margin-bottom: 4px;">350g Family Jar</h3>
+          <p style="font-size: 12.5px; color: var(--text-muted); text-align: center; margin-bottom: 12px;">Monthly grocery basket staple for modern retail aisles.</p>
+
+          <ul class="warm-bullet-list" style="width: 100%;">
+            <li>Launch offer discount driving trial retention</li>
+            <li>High monthly repeat value for families</li>
+            <li>Supermarket shelf presence (Spencer's, Nilgiris)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SLIDE 4: Product Roadmap (Straight Line with Ingredients)
+       ============================================================ -->
+  <div class="slide-container" id="slide4">
+    <div class="slide-header">
+      <div class="header-left">
+        <div class="slide-pill pill-pink">Phased Flavor &amp; Innovation Roadmap</div>
+        <h2 class="slide-title">The Continuous Flavor Journey: From Staple to Regional Delight</h2>
+      </div>
+      <div class="slide-pill pill-yellow">
+        Phase 1 (Staples) ➔ Phase 2 (Wellness &amp; South Indian Palate)
+      </div>
+    </div>
+
+    <div class="content-area">
+      <div class="roadmap-track-wrapper">
+        <!-- Straight Central Horizontal Line -->
+        <div class="roadmap-straight-line"></div>
+
+        <!-- Flavor 1: Classic Creamy -->
+        <div class="roadmap-flavor-station">
+          <div class="flavor-visual-cluster">
+            <!-- Peanuts backdrop -->
+            <div class="ingredient-backdrop">
+              <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+                <ellipse cx="40" cy="40" rx="20" ry="14" transform="rotate(-25 40 40)" fill="#FAD08C" stroke="#D19747" stroke-width="2"/>
+                <ellipse cx="80" cy="85" rx="22" ry="15" transform="rotate(30 80 85)" fill="#F5C070" stroke="#D19747" stroke-width="2"/>
+                <circle cx="90" cy="40" r="10" fill="#FAD08C"/>
+              </svg>
+            </div>
+            <!-- Small Jar -->
+            <svg class="flavor-jar-front" width="70" height="95" viewBox="0 0 70 95" fill="none">
+              <rect x="10" y="20" width="50" height="70" rx="14" fill="#FFFFFF" stroke="#2B2623" stroke-width="2"/>
+              <rect x="14" y="28" width="42" height="56" rx="10" fill="#E8B068"/>
+              <rect x="18" y="38" width="34" height="36" rx="6" fill="#FBF8F3"/>
+              <text x="35" y="52" fill="#2B2623" font-size="6" font-weight="800" text-anchor="middle">CREAMY</text>
+              <rect x="16" y="8" width="38" height="14" rx="4" fill="#5C95FF" stroke="#2B2623" stroke-width="1.8"/>
+            </svg>
+          </div>
+
+          <div class="roadmap-node-circle" style="border-color: #5C95FF;"></div>
+          <span class="slide-pill pill-blue" style="font-size: 9px; padding: 2px 8px; margin-bottom: 4px;">Phase 1</span>
+          <h4 style="font-size: 15px; font-weight: 700;">Classic Creamy</h4>
+          <p style="font-size: 11.5px; color: var(--text-muted); line-height: 1.35; margin-top: 2px;">
+            Ultra-smooth, velvety texture tuned for kids' breakfast toast.
+          </p>
+        </div>
+
+        <!-- Flavor 2: Classic Crunchy -->
+        <div class="roadmap-flavor-station">
+          <div class="flavor-visual-cluster">
+            <!-- Roasted peanut crunch shards backdrop -->
+            <div class="ingredient-backdrop">
+              <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+                <polygon points="30,30 45,45 25,50" fill="#D89A50"/>
+                <polygon points="85,35 100,50 80,60" fill="#B87B32"/>
+                <polygon points="35,80 50,95 30,105" fill="#D89A50"/>
+                <polygon points="80,85 95,80 90,100" fill="#E8B068"/>
+                <ellipse cx="60" cy="25" rx="12" ry="8" fill="#FAD08C"/>
+              </svg>
+            </div>
+            <!-- Small Jar -->
+            <svg class="flavor-jar-front" width="70" height="95" viewBox="0 0 70 95" fill="none">
+              <rect x="10" y="20" width="50" height="70" rx="14" fill="#FFFFFF" stroke="#2B2623" stroke-width="2"/>
+              <rect x="14" y="28" width="42" height="56" rx="10" fill="#D89A50"/>
+              <rect x="18" y="38" width="34" height="36" rx="6" fill="#FBF8F3"/>
+              <text x="35" y="52" fill="#2B2623" font-size="6" font-weight="800" text-anchor="middle">CRUNCHY</text>
+              <rect x="16" y="8" width="38" height="14" rx="4" fill="#F6C843" stroke="#2B2623" stroke-width="1.8"/>
+            </svg>
+          </div>
+
+          <div class="roadmap-node-circle" style="border-color: #F6C843;"></div>
+          <span class="slide-pill pill-yellow" style="font-size: 9px; padding: 2px 8px; margin-bottom: 4px;">Phase 1</span>
+          <h4 style="font-size: 15px; font-weight: 700;">Classic Crunchy</h4>
+          <p style="font-size: 11.5px; color: var(--text-muted); line-height: 1.35; margin-top: 2px;">
+            Crispy slow-roasted peanut nibs for rich textural crunch.
+          </p>
+        </div>
+
+        <!-- Flavor 3: PB&J Fusion -->
+        <div class="roadmap-flavor-station">
+          <div class="flavor-visual-cluster">
+            <!-- Strawberry & Berry splash backdrop -->
+            <div class="ingredient-backdrop">
+              <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+                <!-- Strawberry shape -->
+                <path d="M35 30 C30 15, 60 15, 55 30 C55 50, 45 60, 45 60 C45 60, 35 50, 35 30 Z" fill="#F43F5E"/>
+                <!-- Strawberry seeds -->
+                <circle cx="42" cy="32" r="1.5" fill="#FFE4E6"/>
+                <circle cx="48" cy="40" r="1.5" fill="#FFE4E6"/>
+                <!-- Leaves -->
+                <path d="M42 20 C40 12, 48 12, 45 20 Z" fill="#10B981"/>
+                <ellipse cx="85" cy="80" rx="14" ry="14" fill="#FB7185" opacity="0.7"/>
+              </svg>
+            </div>
+            <!-- Dual Swirl Jar -->
+            <svg class="flavor-jar-front" width="70" height="95" viewBox="0 0 70 95" fill="none">
+              <rect x="10" y="20" width="50" height="70" rx="14" fill="#FFFFFF" stroke="#2B2623" stroke-width="2"/>
+              <rect x="14" y="28" width="21" height="56" fill="#E8B068"/>
+              <rect x="35" y="28" width="21" height="56" fill="#F43F5E"/>
+              <rect x="18" y="38" width="34" height="36" rx="6" fill="#FBF8F3"/>
+              <text x="35" y="52" fill="#2B2623" font-size="6" font-weight="800" text-anchor="middle">PB &amp; J</text>
+              <rect x="16" y="8" width="38" height="14" rx="4" fill="#F43F5E" stroke="#2B2623" stroke-width="1.8"/>
+            </svg>
+          </div>
+
+          <div class="roadmap-node-circle" style="border-color: #F43F5E;"></div>
+          <span class="slide-pill pill-pink" style="font-size: 9px; padding: 2px 8px; margin-bottom: 4px;">Phase 1 Hero</span>
+          <h4 style="font-size: 15px; font-weight: 700;">PB&amp;J Swirl Fusion</h4>
+          <p style="font-size: 11.5px; color: var(--text-muted); line-height: 1.35; margin-top: 2px;">
+            Dual pre-layered fruit preserve and peanut butter delight.
+          </p>
+        </div>
+
+        <!-- Flavor 4: Diabetic-Friendly Low GI -->
+        <div class="roadmap-flavor-station">
+          <div class="flavor-visual-cluster">
+            <!-- Botanical green leaves backdrop -->
+            <div class="ingredient-backdrop">
+              <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+                <path d="M40 85 C30 50, 70 30, 85 45 C80 75, 55 90, 40 85 Z" fill="#A7F3D0" stroke="#059669" stroke-width="1.5"/>
+                <path d="M45 80 L75 52" stroke="#059669" stroke-width="1.5"/>
+                <circle cx="85" cy="80" r="10" fill="#D1FAE5"/>
+              </svg>
+            </div>
+            <!-- Small Green Jar -->
+            <svg class="flavor-jar-front" width="70" height="95" viewBox="0 0 70 95" fill="none">
+              <rect x="10" y="20" width="50" height="70" rx="14" fill="#FFFFFF" stroke="#2B2623" stroke-width="2"/>
+              <rect x="14" y="28" width="42" height="56" rx="10" fill="#E8B068"/>
+              <rect x="18" y="38" width="34" height="36" rx="6" fill="#FBF8F3"/>
+              <text x="35" y="48" fill="#15803D" font-size="5" font-weight="800" text-anchor="middle">LOW GI</text>
+              <text x="35" y="58" fill="#2B2623" font-size="5" font-weight="700" text-anchor="middle">NO SUGAR</text>
+              <rect x="16" y="8" width="38" height="14" rx="4" fill="#10B981" stroke="#2B2623" stroke-width="1.8"/>
+            </svg>
+          </div>
+
+          <div class="roadmap-node-circle" style="border-color: #10B981;"></div>
+          <span class="slide-pill pill-green" style="font-size: 9px; padding: 2px 8px; margin-bottom: 4px;">Phase 2 Wellness</span>
+          <h4 style="font-size: 15px; font-weight: 700;">Diabetic-Friendly</h4>
+          <p style="font-size: 11.5px; color: var(--text-muted); line-height: 1.35; margin-top: 2px;">
+            Zero refined sugars, ultra-low glycemic index formulation.
+          </p>
+        </div>
+
+        <!-- Flavor 5: Jaggery & Cardamom (Regional South Indian) -->
+        <div class="roadmap-flavor-station">
+          <div class="flavor-visual-cluster">
+            <!-- Jaggery Golden Blocks & Cardamom Pods backdrop -->
+            <div class="ingredient-backdrop">
+              <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+                <!-- Jaggery golden blocks -->
+                <rect x="25" y="45" width="26" height="26" rx="5" transform="rotate(15 25 45)" fill="#B45309"/>
+                <rect x="70" y="35" width="22" height="22" rx="4" transform="rotate(-10 70 35)" fill="#D97706"/>
+                <!-- Cardamom pod -->
+                <ellipse cx="55" cy="85" rx="14" ry="8" transform="rotate(-30 55 85)" fill="#65A30D" stroke="#365314" stroke-width="1.5"/>
+              </svg>
+            </div>
+            <!-- Small Warm Ochre Jar -->
+            <svg class="flavor-jar-front" width="70" height="95" viewBox="0 0 70 95" fill="none">
+              <rect x="10" y="20" width="50" height="70" rx="14" fill="#FFFFFF" stroke="#2B2623" stroke-width="2"/>
+              <rect x="14" y="28" width="42" height="56" rx="10" fill="#C27830"/>
+              <rect x="18" y="38" width="34" height="36" rx="6" fill="#FBF8F3"/>
+              <text x="35" y="48" fill="#B45309" font-size="5" font-weight="800" text-anchor="middle">JAGGERY</text>
+              <text x="35" y="58" fill="#2B2623" font-size="5" font-weight="700" text-anchor="middle">CARDAMOM</text>
+              <rect x="16" y="8" width="38" height="14" rx="4" fill="#D97706" stroke="#2B2623" stroke-width="1.8"/>
+            </svg>
+          </div>
+
+          <div class="roadmap-node-circle" style="border-color: #D97706;"></div>
+          <span class="slide-pill pill-coral" style="font-size: 9px; padding: 2px 8px; margin-bottom: 4px;">Phase 2 Regional</span>
+          <h4 style="font-size: 15px; font-weight: 700;">Jaggery &amp; Cardamom</h4>
+          <p style="font-size: 11.5px; color: var(--text-muted); line-height: 1.35; margin-top: 2px;">
+            Authentic Naatu Sarkarai &amp; Elaichi profile for South Indian palates.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SLIDE 5: Packaging & Shelf Disruption (Engineering Diagram)
+       ============================================================ -->
+  <div class="slide-container" id="slide5">
+    <div class="slide-header">
+      <div class="header-left">
+        <div class="slide-pill pill-coral">Packaging Engineering &amp; Shelf Disruption</div>
+        <h2 class="slide-title">Anatomy of a High-Conversion Shelf Anchor</h2>
+      </div>
+      <div class="slide-pill pill-blue">
+        <i class="fa-solid fa-compass-drafting"></i> Specification Blueprint
+      </div>
+    </div>
+
+    <div class="content-area">
+      <div class="blueprint-stage">
+        <!-- Left 2 Blueprint Callout Cards -->
+        <div>
+          <div class="blueprint-callout-card" style="border-left: 4px solid var(--pastel-coral);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+              <span class="slide-pill pill-coral" style="font-size: 9px; padding: 2px 8px;">SPEC 01</span>
+              <i class="fa-solid fa-eye" style="color: var(--pastel-coral);"></i>
+            </div>
+            <h4 style="font-size: 16px; margin-bottom: 4px;">High-Contrast Color-Blocking</h4>
+            <p style="font-size: 12.5px; color: var(--text-muted); line-height: 1.4;">
+              Bright, cheerful lid-and-label palettes instantly break through the dusty, neutral visual monotony of traditional retail grocery shelves.
+            </p>
+          </div>
+
+          <div class="blueprint-callout-card" style="border-left: 4px solid var(--pastel-blue); margin-top: 24px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+              <span class="slide-pill pill-blue" style="font-size: 9px; padding: 2px 8px;">SPEC 02</span>
+              <i class="fa-solid fa-people-roof" style="color: var(--pastel-blue);"></i>
+            </div>
+            <h4 style="font-size: 16px; margin-bottom: 4px;">Warm Family-Friendly Typography</h4>
+            <p style="font-size: 12.5px; color: var(--text-muted); line-height: 1.4;">
+              Soft, approachable letterforms appeal to moms and school children alike, consciously avoiding intimidating bodybuilder supplement tropes.
+            </p>
+          </div>
+        </div>
+
+        <!-- Center: Giant Illustrated Technical Jar with Blueprint Lines -->
+        <div class="center-giant-jar">
+          <svg width="340" height="460" viewBox="0 0 340 460" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Blueprint grid pattern behind jar -->
+            <circle cx="170" cy="230" r="140" stroke="rgba(92, 149, 255, 0.15)" stroke-width="1.5" stroke-dasharray="6 6"/>
+            <circle cx="170" cy="230" r="160" stroke="rgba(246, 200, 67, 0.12)" stroke-width="1"/>
+            
+            <!-- Jar drop shadow -->
+            <ellipse cx="170" cy="435" rx="100" ry="14" fill="rgba(43,38,35,0.08)"/>
+
+            <!-- Glass Jar Body -->
+            <rect x="65" y="80" width="210" height="340" rx="42" fill="#FFFFFF" stroke="#2B2623" stroke-width="3.5"/>
+            <!-- Peanut butter content -->
+            <rect x="74" y="105" width="192" height="305" rx="34" fill="#E8B068"/>
+            <path d="M74 180 Q170 140 266 185 L266 380 C266 398 250 410 232 410 L108 410 C90 410 74 398 74 380 Z" fill="#D89A50"/>
+
+            <!-- Main Product Label -->
+            <rect x="85" y="145" width="170" height="190" rx="20" fill="#FBF8F3" stroke="#2B2623" stroke-width="2.5"/>
+            
+            <!-- Label Brand Header -->
+            <rect x="98" y="160" width="144" height="34" rx="8" fill="#FF7E67"/>
+            <text x="170" y="182" fill="#FFFFFF" font-family="Outfit" font-size="14" font-weight="800" text-anchor="middle" letter-spacing="1">HAPPY HOURS</text>
+
+            <!-- Product Descriptor -->
+            <text x="170" y="215" fill="#2B2623" font-family="Outfit" font-size="17" font-weight="800" text-anchor="middle">CRUNCHY</text>
+            <text x="170" y="232" fill="#6E675F" font-family="Plus Jakarta Sans" font-size="10" font-weight="700" text-anchor="middle">100% CLEAN PEANUTS</text>
+            
+            <!-- Front-of-pack Nutrition Callout Badge -->
+            <rect x="98" y="246" width="144" height="28" rx="7" fill="#E8F7EE" stroke="#48BB78" stroke-width="1.5"/>
+            <text x="170" y="264" fill="#15803D" font-family="Outfit" font-size="11" font-weight="800" text-anchor="middle">✓ 26G PROTEIN • 0% PALM OIL</text>
+
+            <!-- QR Code Section -->
+            <g transform="translate(142, 284)">
+              <rect x="0" y="0" width="56" height="42" rx="6" fill="#F3EFE6" stroke="#2B2623" stroke-width="1.2"/>
+              <!-- Mini QR Matrix -->
+              <rect x="6" y="6" width="10" height="10" fill="#2B2623"/>
+              <rect x="6" y="26" width="10" height="10" fill="#2B2623"/>
+              <rect x="40" y="6" width="10" height="10" fill="#2B2623"/>
+              <rect x="22" y="12" width="6" height="6" fill="#2B2623"/>
+              <rect x="22" y="24" width="8" height="8" fill="#2B2623"/>
+              <rect x="36" y="26" width="8" height="8" fill="#2B2623"/>
+            </g>
+
+            <!-- Big Colored Screw Top Lid -->
+            <rect x="88" y="30" width="164" height="52" rx="14" fill="#5C95FF" stroke="#2B2623" stroke-width="3.5"/>
+            <line x1="105" y1="42" x2="105" y2="70" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
+            <line x1="125" y1="42" x2="125" y2="70" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
+            <line x1="145" y1="42" x2="145" y2="70" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
+            <line x1="165" y1="42" x2="165" y2="70" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
+            <line x1="185" y1="42" x2="185" y2="70" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
+            <line x1="205" y1="42" x2="205" y2="70" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
+            <line x1="225" y1="42" x2="225" y2="70" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
+
+            <!-- Engineering Leader Lines to Cards -->
+            <!-- Top-Left pointer to lid -->
+            <path d="M88 56 L30 56" stroke="#5C95FF" stroke-width="2" stroke-dasharray="3 3"/>
+            <circle cx="88" cy="56" r="4" fill="#5C95FF"/>
+
+            <!-- Bottom-Left pointer to brand -->
+            <path d="M98 177 L30 200" stroke="#FF7E67" stroke-width="2" stroke-dasharray="3 3"/>
+            <circle cx="98" cy="177" r="4" fill="#FF7E67"/>
+
+            <!-- Top-Right pointer to nutrition -->
+            <path d="M242 260 L310 210" stroke="#48BB78" stroke-width="2" stroke-dasharray="3 3"/>
+            <circle cx="242" cy="260" r="4" fill="#48BB78"/>
+
+            <!-- Bottom-Right pointer to QR -->
+            <path d="M198 305 L310 320" stroke="#F6C843" stroke-width="2" stroke-dasharray="3 3"/>
+            <circle cx="198" cy="305" r="4" fill="#F6C843"/>
+          </svg>
+        </div>
+
+        <!-- Right 2 Blueprint Callout Cards -->
+        <div>
+          <div class="blueprint-callout-card" style="border-left: 4px solid var(--pastel-green);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+              <span class="slide-pill pill-green" style="font-size: 9px; padding: 2px 8px;">SPEC 03</span>
+              <i class="fa-solid fa-leaf" style="color: var(--pastel-green);"></i>
+            </div>
+            <h4 style="font-size: 16px; margin-bottom: 4px;">Front-of-Pack Transparency</h4>
+            <p style="font-size: 12.5px; color: var(--text-muted); line-height: 1.4;">
+              Bold front-facing callouts for 26g wholesome plant protein, zero trans-fats, and complete absence of industrial hydrogenated palm oils.
+            </p>
+          </div>
+
+          <div class="blueprint-callout-card" style="border-left: 4px solid var(--pastel-yellow); margin-top: 24px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+              <span class="slide-pill pill-yellow" style="font-size: 9px; padding: 2px 8px;">SPEC 04</span>
+              <i class="fa-solid fa-qrcode" style="color: #B45309;"></i>
+            </div>
+            <h4 style="font-size: 16px; margin-bottom: 4px;">Integrated Smart QR Engine</h4>
+            <p style="font-size: 12.5px; color: var(--text-muted); line-height: 1.4;">
+              Direct on-pack scan gateway triggering 30-second tiffin video recipes, subscriber loyalty credits, and instant 10% re-order vouchers.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SLIDE 6: Tri-Tier Retail & Quick-Commerce (Radar in Center)
+       ============================================================ -->
+  <div class="slide-container" id="slide6">
+    <div class="slide-header">
+      <div class="header-left">
+        <div class="slide-pill pill-green">Omnichannel Go-To-Market</div>
+        <h2 class="slide-title">Tri-Tier Hyperlocal &amp; Quick-Commerce Saturation</h2>
+      </div>
+      <div class="slide-pill pill-coral">
+        <i class="fa-solid fa-store"></i> 500M School &amp; Community Radius
+      </div>
+    </div>
+
+    <div class="content-area">
+      <div class="radar-distro-layout">
+        <!-- Left Horizontal Block: Quick Commerce -->
+        <div class="horizontal-channel-stack">
+          <div class="channel-cool-card" style="border-top: 4px solid var(--pastel-blue);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <div style="width: 36px; height: 36px; border-radius: 10px; background: var(--pastel-blue-light); display: flex; align-items: center; justify-content: center; color: var(--pastel-blue);">
+                  <i class="fa-solid fa-bolt"></i>
+                </div>
+                <div>
+                  <h4 style="font-size: 16px;">Quick Commerce</h4>
+                  <span style="font-size: 10.5px; color: var(--text-light); font-weight: 700;">ZEPTO • BLINKIT • INSTAMART</span>
+                </div>
+              </div>
+              <span class="slide-pill pill-blue">Speed Anchor</span>
+            </div>
+
+            <p style="font-size: 12.5px; color: var(--text-muted); margin-bottom: 8px;">
+              <strong>Priority SKUs:</strong> ₹99 Pocket Pack, PB&amp;J Swirl, 30g Trial Sachet.
+            </p>
+            <ul class="warm-bullet-list">
+              <li><strong>7–10 AM Breakfast Carousel:</strong> Dominating peak lunch packing window.</li>
+              <li><strong>Checkout Basket Upsell:</strong> One-tap auto-prompt when buying bread, eggs, or milk.</li>
+            </ul>
+          </div>
+
+          <div class="channel-cool-card" style="border-top: 4px solid var(--pastel-coral);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <div style="width: 36px; height: 36px; border-radius: 10px; background: var(--pastel-coral-light); display: flex; align-items: center; justify-content: center; color: var(--pastel-coral);">
+                  <i class="fa-solid fa-cart-shopping"></i>
+                </div>
+                <div>
+                  <h4 style="font-size: 16px;">Modern Trade</h4>
+                  <span style="font-size: 10.5px; color: var(--text-light); font-weight: 700;">RELIANCE • SPENCER'S • NILGIRIS</span>
+                </div>
+              </div>
+              <span class="slide-pill pill-coral">Volume Anchor</span>
+            </div>
+
+            <p style="font-size: 12.5px; color: var(--text-muted); margin-bottom: 8px;">
+              <strong>Priority SKU:</strong> 350g Family Jars (₹149 Promo Price).
+            </p>
+            <ul class="warm-bullet-list">
+              <li><strong>Dedicated Bread Aisle Placement:</strong> Eye-level shelving next to daily loaves.</li>
+              <li><strong>Weekend Sampling Kiosks:</strong> Fresh toast-bites sampled directly to families.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Center: 500m Hyperlocal Radius Radar Pod -->
+        <div class="radar-center-pod">
+          <span class="slide-pill pill-yellow" style="margin-bottom: 8px;">
+            <i class="fa-solid fa-radar"></i> HYPERLOCAL SATURATION
+          </span>
+          <h3 style="font-size: 20px; margin-bottom: 4px;">The 500-Meter Core</h3>
+          <p style="font-size: 12px; color: var(--text-muted); max-width: 280px;">
+            High-density neighbourhood capture around schools, apartment gates, and milk distribution hubs.
+          </p>
+
+          <!-- SVG Vector Radar Graphic -->
+          <div class="radar-svg-ring">
+            <svg width="260" height="260" viewBox="0 0 260 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Concentric Rings -->
+              <circle cx="130" cy="130" r="120" stroke="#E2DCD2" stroke-width="1.5" stroke-dasharray="4 4"/>
+              <circle cx="130" cy="130" r="85" stroke="#E2DCD2" stroke-width="1.5"/>
+              <circle cx="130" cy="130" r="50" stroke="#F6C843" stroke-width="2" fill="rgba(246, 200, 67, 0.08)"/>
+              <circle cx="130" cy="130" r="14" fill="#FF7E67" stroke="#FFFFFF" stroke-width="3"/>
+
+              <!-- Radar sweep beam -->
+              <path d="M130 130 L230 70 A120 120 0 0 0 130 10 Z" fill="url(#radarGradient)" opacity="0.6"/>
+              <defs>
+                <radialGradient id="radarGradient" cx="130" cy="130" r="120" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#5C95FF" stop-opacity="0.5"/>
+                  <stop offset="1" stop-color="#5C95FF" stop-opacity="0"/>
+                </radialGradient>
+              </defs>
+
+              <!-- Radar blip points with labels -->
+              <!-- School -->
+              <circle cx="80" cy="65" r="7" fill="#5C95FF" stroke="#FFFFFF" stroke-width="2"/>
+              <text x="80" y="52" fill="#2B2623" font-size="9" font-weight="700" text-anchor="middle">Schools</text>
+
+              <!-- Condos / Apartments -->
+              <circle cx="190" cy="85" r="7" fill="#48BB78" stroke="#FFFFFF" stroke-width="2"/>
+              <text x="190" y="74" fill="#2B2623" font-size="9" font-weight="700" text-anchor="middle">Condos</text>
+
+              <!-- Milk Booth -->
+              <circle cx="75" cy="180" r="7" fill="#F472B6" stroke="#FFFFFF" stroke-width="2"/>
+              <text x="75" y="200" fill="#2B2623" font-size="9" font-weight="700" text-anchor="middle">Milk Booths</text>
+
+              <!-- Kirana -->
+              <circle cx="185" cy="180" r="7" fill="#F6C843" stroke="#FFFFFF" stroke-width="2"/>
+              <text x="185" y="200" fill="#2B2623" font-size="9" font-weight="700" text-anchor="middle">Kiranas</text>
+            </svg>
+          </div>
+
+          <div style="background: var(--bg-warm); border: 1px solid var(--border-subtle); padding: 8px 14px; border-radius: 12px; font-size: 11.5px; font-weight: 700; color: var(--text-dark);">
+            <i class="fa-solid fa-person-walking"></i> 3-Minute Walk Impulse Zone
+          </div>
+        </div>
+
+        <!-- Right Horizontal Block: Hyperlocal Kirana & Retail -->
+        <div class="horizontal-channel-stack">
+          <div class="channel-cool-card" style="border-top: 4px solid var(--pastel-yellow);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <div style="width: 36px; height: 36px; border-radius: 10px; background: var(--pastel-yellow-light); display: flex; align-items: center; justify-content: center; color: #B45309;">
+                  <i class="fa-solid fa-store"></i>
+                </div>
+                <div>
+                  <h4 style="font-size: 16px;">Kiranas &amp; Provision Stores</h4>
+                  <span style="font-size: 10.5px; color: var(--text-light); font-weight: 700;">DAILY PROVISIONS &amp; BAKERY HUBS</span>
+                </div>
+              </div>
+              <span class="slide-pill pill-yellow">Impulse Front</span>
+            </div>
+
+            <p style="font-size: 12.5px; color: var(--text-muted); margin-bottom: 8px;">
+              <strong>Counter-Top Caddy Dispensers:</strong> ₹15–₹20 sachets placed directly at billing counter.
+            </p>
+            <ul class="warm-bullet-list">
+              <li>High-frequency daily checkout visibility for neighborhood parents.</li>
+              <li>Replaces loose candy and cheap confectionery with healthy protein.</li>
+            </ul>
+          </div>
+
+          <div class="channel-cool-card" style="border-top: 4px solid var(--pastel-green);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <div style="width: 36px; height: 36px; border-radius: 10px; background: var(--pastel-green-light); display: flex; align-items: center; justify-content: center; color: var(--pastel-green);">
+                  <i class="fa-solid fa-bottle-droplet"></i>
+                </div>
+                <div>
+                  <h4 style="font-size: 16px;">Aavin Milk Booths &amp; Bakeries</h4>
+                  <span style="font-size: 10.5px; color: var(--text-light); font-weight: 700;">6:00 AM MORNING RUN TOUCHPOINT</span>
+                </div>
+              </div>
+              <span class="slide-pill pill-green">Morning Habit</span>
+            </div>
+
+            <p style="font-size: 12.5px; color: var(--text-muted); margin-bottom: 8px;">
+              <strong>Cross-Category Pairing:</strong> Hanging strip dispensers right next to morning milk packets.
+            </p>
+            <ul class="warm-bullet-list">
+              <li>Captures the exact household moment when breakfast is planned.</li>
+              <li>High touchpoint density within apartment complex gates.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SLIDE 7: Activation Funnel & Hyperlocal Influencers (with Graphics)
+       ============================================================ -->
+  <div class="slide-container" id="slide7">
+    <div class="slide-header">
+      <div class="header-left">
+        <div class="slide-pill pill-pink">Marketing &amp; Growth Funnel</div>
+        <h2 class="slide-title">Trial-to-Loyalty Playbook: From First Taste to Daily Habit</h2>
+      </div>
+      <div class="slide-pill pill-yellow">
+        Zero-Risk Sampling ➔ Scan Reorder ➔ Community Proof
+      </div>
+    </div>
+
+    <div class="content-area">
+      <div class="funnel-pastel-grid">
+        <!-- Step 1: Sampling Blitz with Milk & Bread Illustration -->
+        <div class="funnel-pastel-card" style="border-top: 4px solid var(--pastel-blue);">
+          <div>
+            <div class="funnel-illustration-box" style="background: #EDF4FF;">
+              <!-- Illustrated Milk + Bread + Sachet bundle SVG -->
+              <svg width="180" height="130" viewBox="0 0 180 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Milk Bottle -->
+                <rect x="25" y="35" width="40" height="80" rx="8" fill="#FFFFFF" stroke="#2B2623" stroke-width="2"/>
+                <rect x="33" y="20" width="24" height="15" rx="4" fill="#5C95FF" stroke="#2B2623" stroke-width="2"/>
+                <rect x="30" y="55" width="30" height="24" rx="4" fill="#EBF2FF"/>
+                <text x="45" y="70" fill="#5C95FF" font-size="9" font-weight="800" text-anchor="middle">MILK</text>
+
+                <!-- Bread Loaf -->
+                <rect x="75" y="45" width="55" height="70" rx="12" fill="#F6C843" stroke="#2B2623" stroke-width="2"/>
+                <path d="M75 58 Q102 48 130 58" stroke="#D97706" stroke-width="2"/>
+                <text x="102" y="85" fill="#92400E" font-size="9" font-weight="800" text-anchor="middle">BREAD</text>
+
+                <!-- 30g Sachet Tied with Ribbon -->
+                <rect x="135" y="40" width="30" height="60" rx="6" fill="#FF7E67" stroke="#2B2623" stroke-width="2"/>
+                <text x="150" y="68" fill="#FFFFFF" font-size="7" font-weight="800" text-anchor="middle">FREE</text>
+                <text x="150" y="80" fill="#FFFFFF" font-size="6" font-weight="700" text-anchor="middle">PB</text>
+
+                <!-- Gift Ribbon Bow -->
+                <path d="M120 70 Q135 60 145 70 Q135 80 120 70" fill="#F472B6" stroke="#2B2623" stroke-width="1.5"/>
+              </svg>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <span class="slide-pill pill-blue">Phase 01</span>
+              <span style="font-size: 11px; font-weight: 700; color: #1D4ED8;">Mass Discovery</span>
+            </div>
+            <h3 style="font-size: 20px; margin-bottom: 6px;">Sampling Blitz</h3>
+            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.45;">
+              Zero-risk customer trial via free 30g sachet bundles attached to early morning bread, egg, and milk drops on Zepto &amp; Blinkit.
+            </p>
+          </div>
+
+          <div style="background: var(--pastel-blue-light); border-radius: 12px; padding: 10px 12px; margin-top: 12px;">
+            <div style="font-size: 11px; font-weight: 700; color: #1D4ED8;">GOAL</div>
+            <div style="font-size: 13px; font-weight: 800; color: #1E3A8A;">50,000+ Chennai Households Sampled in 14 Days</div>
+          </div>
+        </div>
+
+        <!-- Step 2: QR Conversion Engine with Phone Scan Illustration -->
+        <div class="funnel-pastel-card" style="border-top: 4px solid var(--pastel-coral);">
+          <div>
+            <div class="funnel-illustration-box" style="background: #FFF2EF;">
+              <!-- Illustrated Smartphone Scanning QR with 10% Off Badge SVG -->
+              <svg width="180" height="130" viewBox="0 0 180 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Smartphone Body -->
+                <rect x="55" y="15" width="70" height="105" rx="14" fill="#FFFFFF" stroke="#2B2623" stroke-width="2"/>
+                <rect x="75" y="20" width="30" height="4" rx="2" fill="#E5DCCE"/>
+                
+                <!-- Screen Area -->
+                <rect x="62" y="30" width="56" height="80" rx="8" fill="#FBF8F3"/>
+                
+                <!-- QR Code on Screen -->
+                <rect x="72" y="38" width="36" height="36" rx="4" fill="#FFFFFF" stroke="#2B2623" stroke-width="1"/>
+                <rect x="76" y="42" width="10" height="10" fill="#FF7E67"/>
+                <rect x="94" y="42" width="10" height="10" fill="#FF7E67"/>
+                <rect x="76" y="60" width="10" height="10" fill="#FF7E67"/>
+
+                <!-- Laser Scan Line -->
+                <line x1="68" y1="56" x2="112" y2="56" stroke="#48BB78" stroke-width="2" stroke-linecap="round"/>
+
+                <!-- Discount Popup Bubble -->
+                <g transform="translate(110, 45)">
+                  <rect x="0" y="0" width="60" height="32" rx="8" fill="#F6C843" stroke="#2B2623" stroke-width="1.8"/>
+                  <text x="30" y="15" fill="#2B2623" font-size="9" font-weight="800" text-anchor="middle">10% OFF</text>
+                  <text x="30" y="26" fill="#78350F" font-size="7" font-weight="700" text-anchor="middle">+ RECIPES</text>
+                </g>
+              </svg>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <span class="slide-pill pill-coral">Phase 02</span>
+              <span style="font-size: 11px; font-weight: 700; color: #C2410C;">Digital Retention</span>
+            </div>
+            <h3 style="font-size: 20px; margin-bottom: 6px;">QR Conversion Funnel</h3>
+            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.45;">
+              Every sample packet delivers a instant QR scan to unlock a 10% next-order coupon, 60-second South Indian tiffin recipe hacks, and loyalty perks.
+            </p>
+          </div>
+
+          <div style="background: var(--pastel-coral-light); border-radius: 12px; padding: 10px 12px; margin-top: 12px;">
+            <div style="font-size: 11px; font-weight: 700; color: #C2410C;">GOAL</div>
+            <div style="font-size: 13px; font-weight: 800; color: #7C2D12;">22% Scan-to-First-Jar Purchase Conversion</div>
+          </div>
+        </div>
+
+        <!-- Step 3: Hyperlocal Creators with Mom & Camera Illustration -->
+        <div class="funnel-pastel-card" style="border-top: 4px solid var(--pastel-green);">
+          <div>
+            <div class="funnel-illustration-box" style="background: #EDF9F1;">
+              <!-- Illustrated Mom & Tiffin Box Video Creator Frame SVG -->
+              <svg width="180" height="130" viewBox="0 0 180 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Camera viewfinder frame -->
+                <rect x="25" y="18" width="130" height="94" rx="12" fill="#FFFFFF" stroke="#2B2623" stroke-width="2"/>
+                <circle cx="38" cy="30" r="4" fill="#EF4444"/>
+                <text x="48" y="33" fill="#EF4444" font-size="8" font-weight="700">REC</text>
+
+                <!-- Kid Lunchbox with PB Toast -->
+                <rect x="42" y="55" width="55" height="42" rx="8" fill="#FCE7F3" stroke="#2B2623" stroke-width="1.5"/>
+                <!-- Toast slice with Peanut Butter swirl -->
+                <rect x="52" y="63" width="24" height="24" rx="4" fill="#F6C843" stroke="#2B2623" stroke-width="1"/>
+                <circle cx="64" cy="75" r="7" fill="#FF7E67"/>
+
+                <!-- Influencer Mom avatar -->
+                <circle cx="125" cy="50" r="16" fill="#FEE2E2" stroke="#2B2623" stroke-width="1.5"/>
+                <path d="M110 88 C110 74 140 74 140 88 Z" fill="#48BB78" stroke="#2B2623" stroke-width="1.5"/>
+                <path d="M116 42 C120 36 130 36 134 42" stroke="#2B2623" stroke-width="2"/>
+
+                <!-- Heart Like Notification -->
+                <g transform="translate(130, 25)">
+                  <circle cx="10" cy="10" r="10" fill="#F472B6"/>
+                  <path d="M10 7 L7 10 L10 14 L13 10 Z" fill="#FFFFFF"/>
+                </g>
+              </svg>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <span class="slide-pill pill-green">Phase 03</span>
+              <span style="font-size: 11px; font-weight: 700; color: #15803D;">Social Advocacy</span>
+            </div>
+            <h3 style="font-size: 20px; margin-bottom: 6px;">Hyperlocal Influencers</h3>
+            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.45;">
+              Partnering with genuine Chennai mom food bloggers and healthy tiffin creators for authentic, unscripted morning breakfast prep videos.
+            </p>
+          </div>
+
+          <div style="background: var(--pastel-green-light); border-radius: 12px; padding: 10px 12px; margin-top: 12px;">
+            <div style="font-size: 11px; font-weight: 700; color: #15803D;">GOAL</div>
+            <div style="font-size: 13px; font-weight: 800; color: #064E3B;">Relatable Mother-to-Mother Trust &amp; Word-of-Mouth</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
