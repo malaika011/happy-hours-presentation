@@ -33,7 +33,7 @@
       --border-subtle: rgba(43, 38, 35, 0.1);
       --border-medium: rgba(43, 38, 35, 0.16);
       --shadow-soft: 0 10px 30px -6px rgba(43, 38, 35, 0.07), 0 4px 12px -2px rgba(43, 38, 35, 0.04);
-      --shadow-lift: 0 16px 36px -8px rgba(43, 38, 35, 0.12), 0 6px 16px -3px rgba(43, 38, 35, 0.06);
+      --shadow-lift: 0 18px 40px -8px rgba(43, 38, 35, 0.14), 0 8px 20px -4px rgba(43, 38, 35, 0.08);
     }
 
     * {
@@ -42,17 +42,22 @@
       padding: 0;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       background-color: #ECE5DA;
-      display: grid;
-      gap: 36px;
-      grid-template-columns: 1fr;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
       min-height: 100vh;
-      padding: 36px 0;
-      place-items: center;
+      padding: 36px 0 120px 0;
+      align-items: center;
       font-family: 'Plus Jakarta Sans', sans-serif;
       color: var(--text-dark);
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
     /* Fixed slide presentation canvas */
@@ -70,6 +75,8 @@
       background-color: var(--bg-warm);
       box-shadow: 0 24px 60px rgba(43, 38, 35, 0.18);
       border: 1px solid rgba(255, 255, 255, 0.8);
+      scroll-margin-top: 36px;
+      transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
 
     .slide-container::before {
@@ -77,9 +84,9 @@
       position: absolute;
       inset: 0;
       background-image: 
-        radial-gradient(circle at 12% 16%, rgba(246, 200, 67, 0.12) 0%, transparent 40%),
-        radial-gradient(circle at 88% 85%, rgba(92, 149, 255, 0.10) 0%, transparent 45%),
-        radial-gradient(circle at 50% 50%, rgba(255, 126, 103, 0.06) 0%, transparent 60%);
+        radial-gradient(circle at 12% 16%, rgba(246, 200, 67, 0.14) 0%, transparent 42%),
+        radial-gradient(circle at 88% 85%, rgba(92, 149, 255, 0.12) 0%, transparent 48%),
+        radial-gradient(circle at 50% 50%, rgba(255, 126, 103, 0.07) 0%, transparent 60%);
       pointer-events: none;
       z-index: 0;
     }
@@ -109,13 +116,21 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 22px;
+      margin-bottom: 20px;
     }
 
     .header-left {
       display: flex;
       flex-direction: column;
       gap: 5px;
+    }
+
+    .sub-hearder-top{
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+      align-items: center;
+      justify-content: flex-start;
     }
 
     .slide-pill {
@@ -129,13 +144,47 @@
       letter-spacing: 0.05em;
       text-transform: uppercase;
       width: fit-content;
+      transition: transform 0.2s ease;
     }
 
-    .pill-coral { background: var(--pastel-coral-light); color: #C2410C; }
-    .pill-blue  { background: var(--pastel-blue-light);  color: #1D4ED8; }
-    .pill-green { background: var(--pastel-green-light); color: #15803D; }
-    .pill-yellow{ background: var(--pastel-yellow-light);color: #B45309; }
-    .pill-pink  { background: var(--pastel-pink-light);  color: #BE185D; }
+    .slide-pill:hover {
+      transform: scale(1.04);
+    }
+
+    .pill-coral { 
+      background: var(--pastel-coral-light);
+      color: #C2410C;
+      white-space: nowrap;
+      position: absolute;
+      bottom: 6px;
+      right: 6px; 
+    }
+    .pill-blue  { 
+      background: var(--pastel-blue-light);
+      color: #1D4ED8;
+      white-space: nowrap;
+      position: absolute;
+      right: 6px;
+      bottom: 6px; 
+    }
+    .pill-green {     
+      background: var(--pastel-green-light);
+      color: #15803D;
+      white-space: nowrap;
+      position: absolute;
+      right: 6px;
+      bottom: 6px;
+    }
+    .pill-yellow{ 
+      background: var(--pastel-yellow-light);
+      color: #B45309;
+      white-space: nowrap;
+      position: absolute;
+      right: 6px;
+      bottom: 6px;
+      z-index: 9;
+    }
+    .pill-pink  { background: var(--pastel-pink-light);  color: #BE185D; white-space: nowrap; }
 
     .slide-title {
       font-size: 32px;
@@ -151,33 +200,140 @@
       justify-content: center;
     }
 
-    /* Standard Card Component */
     .warm-card {
       background: var(--bg-card);
       border-radius: 20px;
       padding: 22px;
       border: 1px solid var(--border-subtle);
       box-shadow: var(--shadow-soft);
-      transition: transform 0.2s ease;
+      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .warm-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lift);
+    }
+
+    /* Floating Jar Animations */
+    @keyframes floatHero {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(-0.5deg); }
+    }
+
+    @keyframes floatShadow {
+      0%, 100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(0.92); opacity: 0.5; }
+    }
+
+    @keyframes floatSway {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-7px) rotate(2deg); }
+    }
+
+    @keyframes pulseScale {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    @keyframes radarSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes radarWave {
+      0% { r: 10; opacity: 0.8; }
+      100% { r: 120; opacity: 0; }
+    }
+
+    @keyframes beaconPulse {
+      0% { r: 6; opacity: 1; }
+      50% { r: 14; opacity: 0.3; }
+      100% { r: 6; opacity: 1; }
+    }
+
+    @keyframes laserScan {
+      0% { transform: translateY(0px); opacity: 0.9; }
+      50% { transform: translateY(50px); opacity: 1; }
+      100% { transform: translateY(0px); opacity: 0.9; }
+    }
+
+    @keyframes recFlash {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.2; }
+    }
+
+    @keyframes dashStream {
+      to { stroke-dashoffset: -24; }
+    }
+
+    @keyframes ingredientDrift {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-6px) rotate(3deg); }
+    }
+
+    @keyframes heartFloat {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-5px) scale(1.1); }
+    }
+
+    /* Class Animation Hooks */
+    .anim-hero-jar {
+      animation: floatHero 4.5s ease-in-out infinite;
+      transform-origin: center bottom;
+    }
+
+    .anim-hero-shadow {
+      animation: floatShadow 4.5s ease-in-out infinite;
+      transform-origin: center;
+    }
+
+    .anim-pulse {
+      animation: pulseScale 2.4s ease-in-out infinite;
+    }
+
+    .anim-radar-beam {
+      animation: radarSpin 5s linear infinite;
+      transform-origin: 130px 130px;
+    }
+
+    .anim-laser {
+      animation: laserScan 2.6s ease-in-out infinite;
+    }
+
+    .anim-rec {
+      animation: recFlash 1.2s ease-in-out infinite;
+    }
+
+    .anim-dash {
+      animation: dashStream 1.8s linear infinite;
+      opacity: 0.2;
+    }
+
+    .anim-ingredient {
+      animation: ingredientDrift 3.5s ease-in-out infinite;
+    }
+
+    .anim-heart {
+      animation: heartFloat 2s ease-in-out infinite;
     }
 
     #slide1 {
       padding: 0;
       display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
+      grid-template-columns: 1.35fr 0.85fr;
       overflow: hidden;
     }
 
     .hero-left-pane {
-      padding: 56px 54px;
+      padding: 50px;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: space-around;
       height: 100%;
     }
 
     .hero-right-pane {
-      background: linear-gradient(135deg, #FFF6E9 0%, #F5ECDF 100%);
+      background: linear-gradient(135deg, #FFF7EB 0%, #F5ECDF 100%);
       border-left: 1px solid var(--border-subtle);
       display: flex;
       flex-direction: column;
@@ -185,19 +341,20 @@
       justify-content: center;
       position: relative;
       padding: 40px;
+      height: 100%;
     }
 
     .hero-title {
-      font-size: 60px;
-      line-height: 1.02;
+      font-size: 58px;
+      line-height: 1.04;
       font-weight: 800;
-      margin-top: 18px;
-      margin-bottom: 18px;
+      margin-top: 16px;
+      margin-bottom: 16px;
       letter-spacing: -0.03em;
     }
 
     .hero-tagline {
-      font-size: 20px;
+      font-size: 19px;
       color: var(--text-muted);
       line-height: 1.45;
       max-width: 500px;
@@ -205,7 +362,7 @@
 
     .brand-features-row {
       display: flex;
-      gap: 12px;
+      gap: 10px;
       flex-wrap: wrap;
     }
 
@@ -220,13 +377,20 @@
       font-size: 13px;
       font-weight: 600;
       box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+      transition: all 0.25s ease;
+    }
+
+    .feature-chip:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+      border-color: var(--pastel-coral);
     }
 
     .whitespace-layout {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 24px;
-      height: 100%;
+      height: 500px;
       align-items: stretch;
     }
 
@@ -239,6 +403,7 @@
       display: flex;
       flex-direction: column;
       position: relative;
+      height: max-content;
     }
 
     .location-chips-grid {
@@ -258,6 +423,15 @@
       display: flex;
       align-items: center;
       gap: 6px;
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+
+    .loc-badge:hover {
+      background: #FFFFFF;
+      transform: translateY(-2px);
+      border-color: var(--pastel-blue);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.06);
     }
 
     .loc-dot {
@@ -281,19 +455,29 @@
       flex-direction: column;
       align-items: center;
       width: 340px;
+      height: 100%;
       background: #FFFFFF;
       border-radius: 24px;
       padding: 24px 20px 20px;
       border: 1px solid var(--border-subtle);
       box-shadow: var(--shadow-soft);
       position: relative;
+      transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .sku-stage-column:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lift);
     }
 
     .sku-stage-column.featured {
       background: #FFFDF9;
       border: 2px solid var(--pastel-yellow);
       box-shadow: var(--shadow-lift);
-      transform: translateY(-8px);
+    }
+
+    .sku-stage-column.featured:hover {
+      transform: translateY(-14px);
     }
 
     .sku-jar-display {
@@ -315,6 +499,7 @@
       font-weight: 700;
       font-family: 'Outfit', sans-serif;
       margin-bottom: 10px;
+      transition: transform 0.2s ease;
     }
 
     .roadmap-track-wrapper {
@@ -324,7 +509,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 20px;
+      padding: 0 16px;
     }
 
     .roadmap-straight-line {
@@ -332,10 +517,11 @@
       top: 50%;
       left: 60px;
       right: 60px;
-      height: 4px;
-      background: linear-gradient(90deg, #F6C843 0%, #FF7E67 50%, #48BB78 100%);
-      border-radius: 4px;
+      height: 5px;
+      background: linear-gradient(90deg, #5C95FF 0%, #F6C843 25%, #FF7E67 50%, #48BB78 75%, #D97706 100%);
+      border-radius: 6px;
       z-index: 1;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     }
 
     .roadmap-flavor-station {
@@ -344,18 +530,29 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: 210px;
+      width: 215px;
       text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .roadmap-flavor-station:hover {
+      transform: translateY(-6px);
     }
 
     .roadmap-node-circle {
-      width: 26px;
-      height: 26px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       background: #FFFFFF;
       border: 4px solid var(--pastel-coral);
       margin: 12px 0;
-      box-shadow: 0 0 0 4px rgba(255, 126, 103, 0.2);
+      box-shadow: 0 0 0 5px rgba(255, 126, 103, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .roadmap-flavor-station:hover .roadmap-node-circle {
+      transform: scale(1.2);
+      box-shadow: 0 0 0 8px rgba(255, 126, 103, 0.35);
     }
 
     .flavor-visual-cluster {
@@ -374,13 +571,18 @@
       align-items: center;
       justify-content: center;
       z-index: 1;
-      opacity: 0.9;
+      opacity: 0.95;
     }
 
     .flavor-jar-front {
       position: relative;
       z-index: 2;
       filter: drop-shadow(0 8px 16px rgba(0,0,0,0.12));
+      transition: transform 0.3s ease;
+    }
+
+    .roadmap-flavor-station:hover .flavor-jar-front {
+      transform: scale(1.08) translateY(-4px);
     }
 
     .blueprint-stage {
@@ -403,12 +605,19 @@
 
     .blueprint-callout-card {
       background: #FFFFFF;
-      border-radius: 16px;
-      padding: 16px 18px;
+      border-radius: 18px;
+      padding: 18px 20px;
       border: 1px solid var(--border-subtle);
       box-shadow: var(--shadow-soft);
       position: relative;
-      margin-bottom: 18px;
+      margin-bottom: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .blueprint-callout-card:hover {
+      transform: translateX(4px);
+      box-shadow: var(--shadow-lift);
+      border-color: var(--pastel-blue);
     }
 
     .blueprint-callout-card:last-child {
@@ -417,7 +626,7 @@
 
     .radar-distro-layout {
       display: grid;
-      grid-template-columns: 1fr 1.1fr 1fr;
+      grid-template-columns: 1fr 1.15fr 1fr;
       gap: 22px;
       align-items: center;
       height: 100%;
@@ -425,7 +634,7 @@
 
     .radar-center-pod {
       background: #FFFFFF;
-      border-radius: 24px;
+      border-radius: 26px;
       border: 1px solid var(--border-subtle);
       box-shadow: var(--shadow-soft);
       padding: 24px;
@@ -436,13 +645,13 @@
       text-align: center;
       position: relative;
       overflow: hidden;
-      height: 480px;
+      height: 490px;
     }
 
     .radar-svg-ring {
       position: relative;
-      width: 260px;
-      height: 260px;
+      width: 270px;
+      height: 270px;
       margin: 10px 0;
     }
 
@@ -458,13 +667,20 @@
       padding: 18px 20px;
       border: 1px solid var(--border-subtle);
       box-shadow: var(--shadow-soft);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .channel-cool-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lift);
     }
 
     .funnel-pastel-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 22px;
-      height: 100%;
+      height: max-content;
     }
 
     .funnel-pastel-card {
@@ -476,10 +692,16 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      transition: all 0.3s ease;
+    }
+
+    .funnel-pastel-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lift);
     }
 
     .funnel-illustration-box {
-      height: 150px;
+      height: 155px;
       width: 100%;
       border-radius: 16px;
       display: flex;
@@ -498,7 +720,7 @@
     ul.warm-bullet-list li {
       position: relative;
       padding-left: 20px;
-      font-size: 13.5px;
+      font-size: 13px;
       line-height: 1.5;
       color: var(--text-dark);
       margin-bottom: 8px;
@@ -508,10 +730,79 @@
       content: '•';
       position: absolute;
       left: 6px;
-      top: -1px;
+      top: -5.5px;
       color: var(--pastel-coral);
       font-size: 18px;
       font-weight: bold;
+    }
+
+    /* Interactive Floating Presentation Dock */
+    .presentation-dock {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(43, 38, 35, 0.15);
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.12);
+      padding: 8px 16px;
+      border-radius: 100px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 999;
+      transition: all 0.3s ease;
+    }
+
+    .dock-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-dark);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 700;
+      transition: all 0.2s ease;
+    }
+
+    .dock-btn:hover {
+      background: var(--pastel-coral-light);
+      color: #C2410C;
+    }
+
+    .dock-indicator {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-muted);
+      padding: 0 8px;
+    }
+
+    .dock-jump-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid var(--border-subtle);
+      background: #FFFFFF;
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .dock-jump-btn:hover, .dock-jump-btn.active {
+      background: var(--text-dark);
+      color: #FFFFFF;
+      border-color: var(--text-dark);
+      transform: scale(1.1);
     }
   </style>
 </head>
@@ -523,7 +814,7 @@
   <div class="slide-container" id="slide1">
     <div class="hero-left-pane">
       <div>
-        <div class="slide-pill pill-coral">
+        <div class="slide-pill pill-coral anim-pulse" style="position: unset;">
           <i class="fa-solid fa-sparkles"></i> Everyday Family Nutrition
         </div>
         <h1 class="hero-title">
@@ -536,9 +827,9 @@
       </div>
 
       <div>
-        <div style="background: rgba(255,255,255,0.7); border: 1px solid var(--border-subtle); padding: 16px 20px; border-radius: 16px; margin-bottom: 20px; backdrop-filter: blur(4px);">
-          <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-light); margin-bottom: 4px;">Strategic Core Mission</div>
-          <p style="font-size: 14.5px; line-height: 1.45; color: var(--text-dark);">
+        <div style="background: rgba(255,255,255,0.85); border: 1px solid var(--border-subtle); padding: 18px 22px; border-radius: 18px; margin-bottom: 22px; backdrop-filter: blur(8px); box-shadow: var(--shadow-soft);">
+          <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: var(--pastel-coral); margin-bottom: 4px;">Strategic Core Mission</div>
+          <p style="font-size: 14.5px; line-height: 1.5; color: var(--text-dark); font-weight: 500;">
             Bridging the gap between elite high-cost fitness spreads and overly sugary preserves with clean, accessible protein for real households.
           </p>
         </div>
@@ -551,43 +842,52 @@
             <i class="fa-solid fa-ban" style="color: var(--pastel-coral);"></i> Zero Palm Oil / Stabilizers
           </div>
           <div class="feature-chip">
-            <i class="fa-solid fa-wallet" style="color: var(--pastel-blue);"></i> Magic ₹99 Adoption SKU
+            <i class="fa-solid fa-wallet" style="color: var(--pastel-blue);"></i>₹99 Adoption SKU
           </div>
         </div>
       </div>
     </div>
 
     <div class="hero-right-pane">
-      <!-- Illustrated Warm Jar Art -->
-      <svg width="240" height="320" viewBox="0 0 240 320" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Jar Shadow -->
-        <ellipse cx="120" cy="305" rx="85" ry="12" fill="rgba(43,38,35,0.08)"/>
-        <!-- Glass Body -->
-        <rect x="40" y="70" width="160" height="230" rx="36" fill="#FFFFFF" stroke="#2B2623" stroke-width="3"/>
-        <!-- Peanut Butter Fill -->
-        <rect x="46" y="90" width="148" height="202" rx="28" fill="#E8B068"/>
-        <path d="M46 140 C80 130, 160 150, 194 135 L194 280 C194 292, 184 300, 172 300 L68 300 C56 300, 46 292, 46 280 Z" fill="#D89A50"/>
-        <!-- Label Area -->
-        <rect x="52" y="125" width="136" height="120" rx="16" fill="#FBF8F3" stroke="#2B2623" stroke-width="2.5"/>
-        <rect x="62" y="137" width="116" height="26" rx="6" fill="#FF7E67"/>
-        <text x="120" y="154" fill="#FFFFFF" font-family="Outfit" font-size="12" font-weight="800" text-anchor="middle" letter-spacing="1">HAPPY HOURS</text>
-        <text x="120" y="180" fill="#2B2623" font-family="Outfit" font-size="14" font-weight="800" text-anchor="middle">CREAMY</text>
-        <text x="120" y="196" fill="#786F66" font-family="Plus Jakarta Sans" font-size="9" font-weight="600" text-anchor="middle">100% CLEAN PEANUTS</text>
-        <line x1="72" y1="210" x2="168" y2="210" stroke="#E5DCCE" stroke-width="1.5"/>
-        <text x="120" y="226" fill="#2B2623" font-family="Outfit" font-size="11" font-weight="700" text-anchor="middle">FAMILY TRIAL • ₹99</text>
-        <!-- Lid -->
-        <rect x="58" y="32" width="124" height="40" rx="10" fill="#5C95FF" stroke="#2B2623" stroke-width="3"/>
-        <line x1="70" y1="42" x2="70" y2="62" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
-        <line x1="85" y1="42" x2="85" y2="62" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
-        <line x1="100" y1="42" x2="100" y2="62" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
-      </svg>
+      <!-- Illustrated Warm Animated Jar Art -->
+      <div style="position: relative; display: flex; flex-direction: column; align-items: center;">
+        <svg width="250" height="330" viewBox="0 0 250 330" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Jar Shadow (breathes with float) -->
+          <ellipse class="anim-hero-shadow" cx="125" cy="312" rx="90" ry="12" fill="rgba(43,38,35,0.09)"/>
+          
+          <!-- Animated Jar Body Group -->
+          <g class="anim-hero-jar">
+            <!-- Glass Body -->
+            <rect x="45" y="70" width="160" height="230" rx="36" fill="#FFFFFF" stroke="#2B2623" stroke-width="3"/>
+            <!-- Peanut Butter Fill -->
+            <rect x="51" y="90" width="148" height="204" rx="28" fill="#E8B068"/>            
+            <!-- Shimmer Reflection -->
+            <path d="M56 100 Q60 170 60 270" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" opacity="0.4"/>
 
-      <!-- Soft floating sticker badges -->
+            <!-- Label Area -->
+            <rect x="57" y="125" width="136" height="120" rx="16" fill="#FBF8F3" stroke="#2B2623" stroke-width="2.5"/>
+            <rect x="67" y="137" width="116" height="26" rx="6" fill="#FF7E67"/>
+            <text x="125" y="154" fill="#FFFFFF" font-family="Outfit" font-size="12" font-weight="800" text-anchor="middle" letter-spacing="1">HAPPY HOURS</text>
+            <text x="125" y="180" fill="#2B2623" font-family="Outfit" font-size="14" font-weight="800" text-anchor="middle">CREAMY</text>
+            <text x="125" y="196" fill="#786F66" font-family="Plus Jakarta Sans" font-size="9" font-weight="700" text-anchor="middle">100% CLEAN PEANUTS</text>
+            <line x1="77" y1="210" x2="173" y2="210" stroke="#E5DCCE" stroke-width="1.5"/>
+            <text x="125" y="226" fill="#2B2623" font-family="Outfit" font-size="11" font-weight="700" text-anchor="middle">FAMILY TRIAL • ₹99</text>
+            <!-- Lid -->
+            <rect x="63" y="32" width="124" height="40" rx="10" fill="#5C95FF" stroke="#2B2623" stroke-width="3"/>
+            <line x1="75" y1="42" x2="75" y2="62" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+            <line x1="90" y1="42" x2="90" y2="62" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+            <line x1="105" y1="42" x2="105" y2="62" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+            <line x1="120" y1="42" x2="120" y2="62" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Soft floating sticker badges with micro bounce -->
       <div style="margin-top: 24px; display: flex; gap: 10px;">
-        <span class="slide-pill pill-yellow" style="box-shadow: 0 4px 12px rgba(0,0,0,0.06);">
+        <span class="slide-pill pill-yellow anim-pulse" style="box-shadow: 0 4px 12px rgba(0,0,0,0.06); position: unset;">
           <i class="fa-solid fa-heart" style="color: #FF7E67;"></i> Chennai Launch
         </span>
-        <span class="slide-pill pill-green" style="box-shadow: 0 4px 12px rgba(0,0,0,0.06);">
+        <span class="slide-pill pill-green" style="box-shadow: 0 4px 12px rgba(0,0,0,0.06); position: unset;">
           <i class="fa-solid fa-check"></i> 26g Protein
         </span>
       </div>
@@ -595,15 +895,15 @@
   </div>
 
   <!-- ============================================================
-       SLIDE 2: Target Market & Chennai Corridors (with Map SVG)
+       SLIDE 2: Target Market & Chennai Corridors (with Map SVG & Beacons)
        ============================================================ -->
   <div class="slide-container" id="slide2">
     <div class="slide-header">
       <div class="header-left">
-        <div class="slide-pill pill-blue">Market Whitespace &amp; Launch Corridors</div>
+        <div class="slide-pill pill-blue" style="position: unset;">Market Whitespace &amp; Launch Corridors</div>
         <h2 class="slide-title">Beyond the Fitness Niche: The Everyday Opportunity</h2>
       </div>
-      <div class="slide-pill pill-coral">
+      <div class="slide-pill pill-coral anim-pulse">
         <i class="fa-solid fa-location-dot"></i> Chennai Core Corridors
       </div>
     </div>
@@ -611,12 +911,12 @@
     <div class="content-area">
       <div class="whitespace-layout">
         <!-- Left: Strategic Incumbent vs Happy Hours breakdown -->
-        <div style="display: flex; flex-direction: column; justify-content: space-between; gap: 16px;">
+        <div style="display: flex; flex-direction: column; justify-content: space-between;">
           <!-- Incumbent Gap Card -->
           <div class="warm-card" style="border-left: 4px solid var(--pastel-coral); padding: 18px 20px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
               <span class="slide-pill pill-coral">The Incumbents</span>
-              <span style="font-size: 11px; color: var(--text-light); font-weight: 600;">Pintola • Alpino • Sundrop • Kissan</span>
+              <span style="font-size: 11px; color: var(--text-light); font-weight: 700;">Pintola • Alpino • Sundrop • Kissan</span>
             </div>
             <h3 style="font-size: 18px; margin-bottom: 6px;">Narrow Digital &amp; Gym Enthusiast Focus</h3>
             <p style="font-size: 13.5px; color: var(--text-muted); line-height: 1.45;">
@@ -647,65 +947,80 @@
           </div>
         </div>
 
-        <!-- Right: Chennai Vector Map Card -->
+        <!-- Right: Chennai Vector Map Card with Live Beacons -->
         <div class="map-container-card">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
             <span style="font-size: 13px; font-weight: 700; color: var(--text-dark);">
               <i class="fa-solid fa-map-location-dot" style="color: var(--pastel-blue);"></i> Chennai Priority Corridors
             </span>
-            <span class="slide-pill pill-blue">5 Target Clusters</span>
+            <span class="slide-pill pill-blue" style="position: unset;">5 Target Clusters</span>
           </div>
 
-          <!-- Stylized Chennai Coastal Map SVG -->
-          <div style="flex-grow: 1; display: flex; align-items: center; justify-content: center; position: relative;">
-            <svg width="420" height="280" viewBox="0 0 420 280" fill="none" xmlns="http://www.w3.org/2000/svg" style="border-radius: 12px; background: #F4F7FB;">
+          <!-- Stylized Chennai Coastal Map SVG with animated ripples -->
+          <div style="flex-grow: 0.5; display: flex; align-items: center; justify-content: center; position: relative; margin: 40px 0;">
+            <svg width="430" height="280" viewBox="0 0 430 280" fill="none" xmlns="http://www.w3.org/2000/svg" style="border-radius: 14px; background: #F4F7FB;">
               <!-- Bay of Bengal Coastline (Right Side) -->
-              <path d="M330 0 C325 70, 310 140, 335 220 C345 250, 340 280, 340 280 L420 280 L420 0 Z" fill="#E2EDF9"/>
-              <text x="375" y="140" fill="#7BA4CE" font-size="10" font-weight="700" letter-spacing="2" transform="rotate(90 375 140)">BAY OF BENGAL</text>
+              <path d="M340 0 C335 70, 320 140, 345 220 C355 250, 350 280, 350 280 L430 280 L430 0 Z" fill="#E2EDF9"/>
+              <text x="385" y="140" fill="#7BA4CE" font-size="10" font-weight="700" letter-spacing="2" transform="rotate(90 385 140)">BAY OF BENGAL</text>
 
-              <!-- Main Arterial Road Network -->
-              <path d="M70 40 Q180 80 300 90" stroke="#E2DCD2" stroke-width="2.5" stroke-dasharray="4 4"/>
-              <path d="M120 250 Q200 180 310 160" stroke="#E2DCD2" stroke-width="2.5" stroke-dasharray="4 4"/>
-              <path d="M180 30 Q220 150 250 270" stroke="#E2DCD2" stroke-width="3" stroke-linecap="round"/>
-              <path d="M250 80 L300 130 L270 260" stroke="#D3C9BD" stroke-width="2"/>
+              <!-- Main Arterial Road Network with streaming dashes -->
+              <path class="anim-dash" d="M70 40 Q180 80 300 90" stroke="#CBD5E1" stroke-width="2.5" stroke-dasharray="6 6"/>
+              <path class="anim-dash" d="M120 250 Q200 180 310 160" stroke="#CBD5E1" stroke-width="2.5" stroke-dasharray="6 6"/>
+              <path d="M180 30 Q220 150 250 270" stroke="#D8DFE9" stroke-width="3.5" stroke-linecap="round" style="opacity: 0.2;"/>
+              <path d="M250 80 L300 130 L270 260" stroke="#CBD5E1" stroke-width="2"  style="opacity: 0.2;"/>
 
-              <!-- 1. Madhavaram (North) -->
-              <g transform="translate(190, 45)">
-                <circle cx="0" cy="0" r="14" fill="rgba(255, 126, 103, 0.18)"/>
+              <!-- 1. Madhavaram (North) with animated ripple ring -->
+              <g transform="translate(195, 45)">
+                <circle cx="0" cy="0" r="16" fill="rgba(255, 126, 103, 0.25)">
+                  <animate attributeName="r" values="8;20;8" dur="2.4s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity" values="0.8;0.2;0.8" dur="2.4s" repeatCount="indefinite"/>
+                </circle>
                 <circle cx="0" cy="0" r="6" fill="#FF7E67" stroke="#FFFFFF" stroke-width="2"/>
-                <rect x="12" y="-12" width="90" height="22" rx="6" fill="#FFFFFF" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.08))"/>
+                <rect x="12" y="-12" width="78" height="22" rx="6" fill="#FFFFFF" filter="drop-shadow(0 2px 5px rgba(0,0,0,0.08))"/>
                 <text x="18" y="3" fill="#2B2623" font-size="10" font-weight="700" font-family="Plus Jakarta Sans">Madhavaram</text>
               </g>
 
               <!-- 2. Anna Nagar (Central West) -->
               <g transform="translate(160, 105)">
-                <circle cx="0" cy="0" r="16" fill="rgba(92, 149, 255, 0.22)"/>
+                <circle cx="0" cy="0" r="18" fill="rgba(92, 149, 255, 0.28)">
+                  <animate attributeName="r" values="8;22;8" dur="2.8s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity" values="0.8;0.2;0.8" dur="2.8s" repeatCount="indefinite"/>
+                </circle>
                 <circle cx="0" cy="0" r="6" fill="#5C95FF" stroke="#FFFFFF" stroke-width="2"/>
-                <rect x="-85" y="-12" width="76" height="22" rx="6" fill="#FFFFFF" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.08))"/>
+                <rect x="-85" y="-12" width="76" height="22" rx="6" fill="#FFFFFF" filter="drop-shadow(0 2px 5px rgba(0,0,0,0.08))"/>
                 <text x="-80" y="3" fill="#2B2623" font-size="10" font-weight="700" font-family="Plus Jakarta Sans">Anna Nagar</text>
               </g>
 
               <!-- 3. Porur (West Hub) -->
               <g transform="translate(110, 155)">
-                <circle cx="0" cy="0" r="14" fill="rgba(246, 200, 67, 0.25)"/>
+                <circle cx="0" cy="0" r="16" fill="rgba(246, 200, 67, 0.3)">
+                  <animate attributeName="r" values="7;18;7" dur="2.5s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity" values="0.8;0.2;0.8" dur="2.5s" repeatCount="indefinite"/>
+                </circle>
                 <circle cx="0" cy="0" r="6" fill="#F6C843" stroke="#FFFFFF" stroke-width="2"/>
-                <rect x="-56" y="-12" width="48" height="22" rx="6" fill="#FFFFFF" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.08))"/>
+                <rect x="-56" y="-12" width="48" height="22" rx="6" fill="#FFFFFF" filter="drop-shadow(0 2px 5px rgba(0,0,0,0.08))"/>
                 <text x="-50" y="3" fill="#2B2623" font-size="10" font-weight="700" font-family="Plus Jakarta Sans">Porur</text>
               </g>
 
               <!-- 4. Velachery (South IT Corridor) -->
-              <g transform="translate(260, 180)">
-                <circle cx="0" cy="0" r="18" fill="rgba(72, 187, 120, 0.25)"/>
+              <g transform="translate(265, 180)">
+                <circle cx="0" cy="0" r="20" fill="rgba(72, 187, 120, 0.3)">
+                  <animate attributeName="r" values="8;24;8" dur="2.6s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity" values="0.8;0.2;0.8" dur="2.6s" repeatCount="indefinite"/>
+                </circle>
                 <circle cx="0" cy="0" r="7" fill="#48BB78" stroke="#FFFFFF" stroke-width="2"/>
-                <rect x="14" y="-12" width="70" height="22" rx="6" fill="#FFFFFF" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.08))"/>
+                <rect x="14" y="-12" width="70" height="22" rx="6" fill="#FFFFFF" filter="drop-shadow(0 2px 5px rgba(0,0,0,0.08))"/>
                 <text x="20" y="3" fill="#2B2623" font-size="10" font-weight="700" font-family="Plus Jakarta Sans">Velachery</text>
               </g>
 
               <!-- 5. Tambaram (South Suburb) -->
               <g transform="translate(180, 235)">
-                <circle cx="0" cy="0" r="14" fill="rgba(244, 114, 182, 0.22)"/>
+                <circle cx="0" cy="0" r="16" fill="rgba(244, 114, 182, 0.28)">
+                  <animate attributeName="r" values="7;20;7" dur="3s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity" values="0.8;0.2;0.8" dur="3s" repeatCount="indefinite"/>
+                </circle>
                 <circle cx="0" cy="0" r="6" fill="#F472B6" stroke="#FFFFFF" stroke-width="2"/>
-                <rect x="12" y="-12" width="76" height="22" rx="6" fill="#FFFFFF" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.08))"/>
+                <rect x="12" y="-12" width="76" height="22" rx="6" fill="#FFFFFF" filter="drop-shadow(0 2px 5px rgba(0,0,0,0.08))"/>
                 <text x="18" y="3" fill="#2B2623" font-size="10" font-weight="700" font-family="Plus Jakarta Sans">Tambaram</text>
               </g>
             </svg>
@@ -730,10 +1045,10 @@
   <div class="slide-container" id="slide3">
     <div class="slide-header">
       <div class="header-left">
-        <div class="slide-pill pill-yellow">Product &amp; Pricing Architecture</div>
+        <div class="slide-pill pill-yellow" style="position: unset;">Product &amp; Pricing Architecture</div>
         <h2 class="slide-title">Form Factors Engineered for Every Kitchen &amp; Occasion</h2>
       </div>
-      <div class="slide-pill pill-coral">
+      <div class="slide-pill pill-coral anim-pulse">
         Zero Friction Trial to Pantry Dominance
       </div>
     </div>
@@ -742,15 +1057,14 @@
       <div class="sku-center-stage">
         <!-- SKU 1: 30g Sachet / Mini Trial Pouch -->
         <div class="sku-stage-column">
-          <span class="slide-pill pill-coral" style="margin-bottom: 12px;">Zero Risk Trial</span>
+          <span class="slide-pill pill-coral" style="margin-bottom: 12px; position: unset;">Zero Risk Trial</span>
           
           <div class="sku-jar-display">
             <!-- Illustrated 30g Sachet Pouch SVG -->
-            <svg width="100" height="150" viewBox="0 0 100 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg class="anim-hero-jar" width="100" height="150" viewBox="0 0 100 150" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect x="15" y="10" width="70" height="130" rx="10" fill="#FFF5EB" stroke="#2B2623" stroke-width="2.5"/>
               <path d="M15 25 L85 25" stroke="#2B2623" stroke-width="2" stroke-dasharray="3 3"/>
-              <circle cx="50" cy="18" r="3" fill="#2B2623"/>
-              <rect x="22" y="45" width="56" height="70" rx="8" fill="#FF7E67"/>
+              <rect x="16.5" y="45" width="67" height="70" fill="#FF7E67"></rect>
               <text x="50" y="65" fill="#FFFFFF" font-family="Outfit" font-size="8" font-weight="800" text-anchor="middle">HAPPY HOURS</text>
               <text x="50" y="80" fill="#FFFFFF" font-family="Plus Jakarta Sans" font-size="10" font-weight="800" text-anchor="middle">30g TRIAL</text>
               <rect x="30" y="92" width="40" height="14" rx="4" fill="#FFFFFF"/>
@@ -771,15 +1085,15 @@
 
         <!-- SKU 2: 200g Impulse Hero Jar (Centered & Featured) -->
         <div class="sku-stage-column featured">
-          <div style="position: absolute; top: -14px; background: var(--pastel-coral); color: #FFFFFF; font-size: 11px; font-weight: 800; padding: 4px 14px; border-radius: 100px; box-shadow: 0 4px 10px rgba(255,126,103,0.3);">
+          <div class="anim-pulse" style="position: absolute; top: -14px; background: var(--pastel-coral); color: #FFFFFF; font-size: 11px; font-weight: 800; padding: 4px 14px; border-radius: 100px; box-shadow: 0 4px 12px rgba(255,126,103,0.35);">
             ⭐ THE HERO IMPULSE SKU
           </div>
 
-          <span class="slide-pill pill-yellow" style="margin-bottom: 8px; margin-top: 6px;">Desk &amp; Tiffin Hero</span>
+          <span class="slide-pill pill-yellow" style="margin-bottom: 8px; margin-top: 6px; position: unset;">Desk &amp; Tiffin Hero</span>
 
           <div class="sku-jar-display">
             <!-- Illustrated 200g Jar SVG -->
-            <svg width="150" height="200" viewBox="0 0 150 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg class="anim-hero-jar" width="150" height="200" viewBox="0 0 150 200" fill="none" xmlns="http://www.w3.org/2000/svg">
               <ellipse cx="75" cy="190" rx="55" ry="8" fill="rgba(43,38,35,0.06)"/>
               <rect x="25" y="45" width="100" height="145" rx="24" fill="#FFFFFF" stroke="#2B2623" stroke-width="2.5"/>
               <rect x="30" y="60" width="90" height="122" rx="18" fill="#E8B068"/>
@@ -787,15 +1101,15 @@
               <rect x="35" y="80" width="80" height="82" rx="12" fill="#FBF8F3" stroke="#2B2623" stroke-width="2"/>
               <rect x="42" y="88" width="66" height="18" rx="4" fill="#5C95FF"/>
               <text x="75" y="100" fill="#FFFFFF" font-family="Outfit" font-size="8" font-weight="800" text-anchor="middle">HAPPY HOURS</text>
-              <text x="75" y="120" fill="#2B2623" font-family="Outfit" font-size="12" font-weight="800" text-anchor="middle">200g POCKET</text>
+              <text x="75" y="120" fill="#2B2623" font-family="Outfit" font-size="10" font-weight="800" text-anchor="middle">200g JAR</text>
               <rect x="48" y="130" width="54" height="18" rx="6" fill="#F6C843"/>
-              <text x="75" y="143" fill="#2B2623" font-family="Outfit" font-size="11" font-weight="800" text-anchor="middle">MAGIC ₹99</text>
+              <text x="75" y="143" fill="#2B2623" font-family="Outfit" font-size="10" font-weight="800" text-anchor="middle">JUST ₹99</text>
               <!-- Lid -->
               <rect x="36" y="20" width="78" height="28" rx="8" fill="#F6C843" stroke="#2B2623" stroke-width="2.5"/>
             </svg>
           </div>
 
-          <div class="price-pill-tag" style="background: var(--pastel-coral);">MAGIC ₹99</div>
+          <div class="price-pill-tag anim-pulse" style="background: var(--pastel-coral);">JUST ₹99</div>
           <h3 style="font-size: 21px; margin-bottom: 4px;">200g Pocket Pack</h3>
           <p style="font-size: 12.5px; color: var(--text-muted); text-align: center; margin-bottom: 12px;">Psychological sub-₹100 sweet spot for high volume quick-com orders.</p>
 
@@ -808,11 +1122,11 @@
 
         <!-- SKU 3: 350g Family Jar -->
         <div class="sku-stage-column">
-          <span class="slide-pill pill-green" style="margin-bottom: 12px;">Pantry Anchor</span>
+          <span class="slide-pill pill-green" style="margin-bottom: 12px; position: unset;">Family Anchor</span>
 
           <div class="sku-jar-display">
             <!-- Illustrated 350g Big Family Jar SVG -->
-            <svg width="170" height="220" viewBox="0 0 170 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg class="anim-hero-jar" width="170" height="220" viewBox="0 0 170 220" fill="none" xmlns="http://www.w3.org/2000/svg">
               <ellipse cx="85" cy="208" rx="65" ry="9" fill="rgba(43,38,35,0.06)"/>
               <rect x="20" y="40" width="130" height="165" rx="30" fill="#FFFFFF" stroke="#2B2623" stroke-width="2.5"/>
               <rect x="26" y="55" width="118" height="142" rx="24" fill="#D89A50"/>
@@ -821,7 +1135,7 @@
               <rect x="42" y="85" width="86" height="20" rx="4" fill="#48BB78"/>
               <text x="85" y="99" fill="#FFFFFF" font-family="Outfit" font-size="9" font-weight="800" text-anchor="middle">HAPPY HOURS</text>
               <text x="85" y="122" fill="#2B2623" font-family="Outfit" font-size="13" font-weight="800" text-anchor="middle">350g FAMILY</text>
-              <text x="85" y="140" fill="#9B948B" font-family="Plus Jakarta Sans" font-size="9" text-decoration="line-through" text-anchor="middle">MRP ₹200 – ₹220</text>
+              <text x="85" y="140" fill="#9B948B" font-family="Plus Jakarta Sans" font-size="9" text-decoration="line-through" text-anchor="middle">MRP ₹220</text>
               <rect x="48" y="146" width="74" height="16" rx="5" fill="#E8F7EE"/>
               <text x="85" y="158" fill="#15803D" font-family="Outfit" font-size="10" font-weight="800" text-anchor="middle">OFFER ₹149</text>
               <!-- Lid -->
@@ -844,16 +1158,18 @@
   </div>
 
   <!-- ============================================================
-       SLIDE 4: Product Roadmap (Straight Line with Ingredients)
+       SLIDE 4: Product Roadmap (Straight Line with Floating Ingredients)
        ============================================================ -->
   <div class="slide-container" id="slide4">
     <div class="slide-header">
       <div class="header-left">
-        <div class="slide-pill pill-pink">Phased Flavor &amp; Innovation Roadmap</div>
+        <div class="sub-hearder-top">
+            <div class="slide-pill pill-pink">Phased Flavor &amp; Innovation Roadmap</div>
+            <div class="slide-pill pill-yellow" style="position: unset;">
+                Phase 1 (Staples) ➔ Phase 2 (Wellness &amp; South Indian Palate)
+            </div>
+        </div>
         <h2 class="slide-title">The Continuous Flavor Journey: From Staple to Regional Delight</h2>
-      </div>
-      <div class="slide-pill pill-yellow">
-        Phase 1 (Staples) ➔ Phase 2 (Wellness &amp; South Indian Palate)
       </div>
     </div>
 
@@ -865,8 +1181,8 @@
         <!-- Flavor 1: Classic Creamy -->
         <div class="roadmap-flavor-station">
           <div class="flavor-visual-cluster">
-            <!-- Peanuts backdrop -->
-            <div class="ingredient-backdrop">
+            <!-- Peanuts backdrop with subtle floating animation -->
+            <div class="ingredient-backdrop anim-ingredient">
               <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
                 <ellipse cx="40" cy="40" rx="20" ry="14" transform="rotate(-25 40 40)" fill="#FAD08C" stroke="#D19747" stroke-width="2"/>
                 <ellipse cx="80" cy="85" rx="22" ry="15" transform="rotate(30 80 85)" fill="#F5C070" stroke="#D19747" stroke-width="2"/>
@@ -884,7 +1200,7 @@
           </div>
 
           <div class="roadmap-node-circle" style="border-color: #5C95FF;"></div>
-          <span class="slide-pill pill-blue" style="font-size: 9px; padding: 2px 8px; margin-bottom: 4px;">Phase 1</span>
+          <span class="slide-pill pill-blue" style="font-size: 9px; padding: 2px 8px; margin-bottom: 4px; position: unset;">Phase 1</span>
           <h4 style="font-size: 15px; font-weight: 700;">Classic Creamy</h4>
           <p style="font-size: 11.5px; color: var(--text-muted); line-height: 1.35; margin-top: 2px;">
             Ultra-smooth, velvety texture tuned for kids' breakfast toast.
@@ -895,7 +1211,7 @@
         <div class="roadmap-flavor-station">
           <div class="flavor-visual-cluster">
             <!-- Roasted peanut crunch shards backdrop -->
-            <div class="ingredient-backdrop">
+            <div class="ingredient-backdrop anim-ingredient" style="animation-delay: 0.5s;">
               <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
                 <polygon points="30,30 45,45 25,50" fill="#D89A50"/>
                 <polygon points="85,35 100,50 80,60" fill="#B87B32"/>
@@ -915,7 +1231,7 @@
           </div>
 
           <div class="roadmap-node-circle" style="border-color: #F6C843;"></div>
-          <span class="slide-pill pill-yellow" style="font-size: 9px; padding: 2px 8px; margin-bottom: 4px;">Phase 1</span>
+          <span class="slide-pill pill-yellow" style="font-size: 9px; padding: 2px 8px; margin-bottom: 4px; position: unset;">Phase 1</span>
           <h4 style="font-size: 15px; font-weight: 700;">Classic Crunchy</h4>
           <p style="font-size: 11.5px; color: var(--text-muted); line-height: 1.35; margin-top: 2px;">
             Crispy slow-roasted peanut nibs for rich textural crunch.
@@ -926,7 +1242,7 @@
         <div class="roadmap-flavor-station">
           <div class="flavor-visual-cluster">
             <!-- Strawberry & Berry splash backdrop -->
-            <div class="ingredient-backdrop">
+            <div class="ingredient-backdrop anim-ingredient" style="animation-delay: 1s;">
               <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
                 <!-- Strawberry shape -->
                 <path d="M35 30 C30 15, 60 15, 55 30 C55 50, 45 60, 45 60 C45 60, 35 50, 35 30 Z" fill="#F43F5E"/>
@@ -935,14 +1251,14 @@
                 <circle cx="48" cy="40" r="1.5" fill="#FFE4E6"/>
                 <!-- Leaves -->
                 <path d="M42 20 C40 12, 48 12, 45 20 Z" fill="#10B981"/>
-                <ellipse cx="85" cy="80" rx="14" ry="14" fill="#FB7185" opacity="0.7"/>
+                <ellipse cx="85" cy="80" rx="14" ry="14" fill="#FB7185" opacity="0.8"/>
               </svg>
             </div>
             <!-- Dual Swirl Jar -->
             <svg class="flavor-jar-front" width="70" height="95" viewBox="0 0 70 95" fill="none">
               <rect x="10" y="20" width="50" height="70" rx="14" fill="#FFFFFF" stroke="#2B2623" stroke-width="2"/>
-              <rect x="14" y="28" width="21" height="56" fill="#E8B068"/>
-              <rect x="35" y="28" width="21" height="56" fill="#F43F5E"/>
+              <path d="M24 28 H35 V84 H24 Q14 84 14 74 V38 Q14 28 24 28 Z" fill="#E8B068"/>              
+              <path d="M35 28 H46 Q56 28 56 38 V74 Q56 84 46 84 H35 Z" fill="#F43F5E"/>
               <rect x="18" y="38" width="34" height="36" rx="6" fill="#FBF8F3"/>
               <text x="35" y="52" fill="#2B2623" font-size="6" font-weight="800" text-anchor="middle">PB &amp; J</text>
               <rect x="16" y="8" width="38" height="14" rx="4" fill="#F43F5E" stroke="#2B2623" stroke-width="1.8"/>
@@ -950,7 +1266,7 @@
           </div>
 
           <div class="roadmap-node-circle" style="border-color: #F43F5E;"></div>
-          <span class="slide-pill pill-pink" style="font-size: 9px; padding: 2px 8px; margin-bottom: 4px;">Phase 1 Hero</span>
+          <span class="slide-pill pill-pink" style="font-size: 9px; padding: 2px 8px; margin-bottom: 4px; position: unset;">Phase 1 Hero</span>
           <h4 style="font-size: 15px; font-weight: 700;">PB&amp;J Swirl Fusion</h4>
           <p style="font-size: 11.5px; color: var(--text-muted); line-height: 1.35; margin-top: 2px;">
             Dual pre-layered fruit preserve and peanut butter delight.
@@ -961,7 +1277,7 @@
         <div class="roadmap-flavor-station">
           <div class="flavor-visual-cluster">
             <!-- Botanical green leaves backdrop -->
-            <div class="ingredient-backdrop">
+            <div class="ingredient-backdrop anim-ingredient" style="animation-delay: 1.5s;">
               <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
                 <path d="M40 85 C30 50, 70 30, 85 45 C80 75, 55 90, 40 85 Z" fill="#A7F3D0" stroke="#059669" stroke-width="1.5"/>
                 <path d="M45 80 L75 52" stroke="#059669" stroke-width="1.5"/>
@@ -980,7 +1296,7 @@
           </div>
 
           <div class="roadmap-node-circle" style="border-color: #10B981;"></div>
-          <span class="slide-pill pill-green" style="font-size: 9px; padding: 2px 8px; margin-bottom: 4px;">Phase 2 Wellness</span>
+          <span class="slide-pill pill-green" style="font-size: 9px; padding: 2px 8px; margin-bottom: 4px; position: unset;">Phase 2 Wellness</span>
           <h4 style="font-size: 15px; font-weight: 700;">Diabetic-Friendly</h4>
           <p style="font-size: 11.5px; color: var(--text-muted); line-height: 1.35; margin-top: 2px;">
             Zero refined sugars, ultra-low glycemic index formulation.
@@ -991,7 +1307,7 @@
         <div class="roadmap-flavor-station">
           <div class="flavor-visual-cluster">
             <!-- Jaggery Golden Blocks & Cardamom Pods backdrop -->
-            <div class="ingredient-backdrop">
+            <div class="ingredient-backdrop anim-ingredient" style="animation-delay: 2s;">
               <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
                 <!-- Jaggery golden blocks -->
                 <rect x="25" y="45" width="26" height="26" rx="5" transform="rotate(15 25 45)" fill="#B45309"/>
@@ -1012,7 +1328,7 @@
           </div>
 
           <div class="roadmap-node-circle" style="border-color: #D97706;"></div>
-          <span class="slide-pill pill-coral" style="font-size: 9px; padding: 2px 8px; margin-bottom: 4px;">Phase 2 Regional</span>
+          <span class="slide-pill pill-coral" style="font-size: 9px; padding: 2px 8px; margin-bottom: 4px; position: unset;">Phase 2 Regional</span>
           <h4 style="font-size: 15px; font-weight: 700;">Jaggery &amp; Cardamom</h4>
           <p style="font-size: 11.5px; color: var(--text-muted); line-height: 1.35; margin-top: 2px;">
             Authentic Naatu Sarkarai &amp; Elaichi profile for South Indian palates.
@@ -1028,11 +1344,11 @@
   <div class="slide-container" id="slide5">
     <div class="slide-header">
       <div class="header-left">
-        <div class="slide-pill pill-coral">Packaging Engineering &amp; Shelf Disruption</div>
+        <div class="slide-pill pill-coral" style="position: unset;">Packaging Engineering &amp; Shelf Disruption</div>
         <h2 class="slide-title">Anatomy of a High-Conversion Shelf Anchor</h2>
       </div>
-      <div class="slide-pill pill-blue">
-        <i class="fa-solid fa-compass-drafting"></i> Specification Blueprint
+      <div class="slide-pill pill-blue anim-pulse">
+        <i class="fa-solid fa-compass-drafting" style="position: unset;"></i> Specification Blueprint
       </div>
     </div>
 
@@ -1051,7 +1367,7 @@
             </p>
           </div>
 
-          <div class="blueprint-callout-card" style="border-left: 4px solid var(--pastel-blue); margin-top: 24px;">
+          <div class="blueprint-callout-card" style="border-left: 4px solid var(--pastel-blue);">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
               <span class="slide-pill pill-blue" style="font-size: 9px; padding: 2px 8px;">SPEC 02</span>
               <i class="fa-solid fa-people-roof" style="color: var(--pastel-blue);"></i>
@@ -1067,71 +1383,60 @@
         <div class="center-giant-jar">
           <svg width="340" height="460" viewBox="0 0 340 460" fill="none" xmlns="http://www.w3.org/2000/svg">
             <!-- Blueprint grid pattern behind jar -->
-            <circle cx="170" cy="230" r="140" stroke="rgba(92, 149, 255, 0.15)" stroke-width="1.5" stroke-dasharray="6 6"/>
-            <circle cx="170" cy="230" r="160" stroke="rgba(246, 200, 67, 0.12)" stroke-width="1"/>
+            <circle cx="170" cy="230" r="140" stroke="rgba(92, 149, 255, 0.2)" stroke-width="1.5" stroke-dasharray="6 6"/>
+            <circle cx="170" cy="230" r="160" stroke="rgba(246, 200, 67, 0.16)" stroke-width="1"/>
             
             <!-- Jar drop shadow -->
-            <ellipse cx="170" cy="435" rx="100" ry="14" fill="rgba(43,38,35,0.08)"/>
+            <ellipse class="anim-hero-shadow" cx="170" cy="435" rx="100" ry="14" fill="rgba(43,38,35,0.08)"/>
 
             <!-- Glass Jar Body -->
-            <rect x="65" y="80" width="210" height="340" rx="42" fill="#FFFFFF" stroke="#2B2623" stroke-width="3.5"/>
-            <!-- Peanut butter content -->
-            <rect x="74" y="105" width="192" height="305" rx="34" fill="#E8B068"/>
-            <path d="M74 180 Q170 140 266 185 L266 380 C266 398 250 410 232 410 L108 410 C90 410 74 398 74 380 Z" fill="#D89A50"/>
+            <g class="anim-hero-jar">
+              <rect x="65" y="80" width="210" height="340" rx="42" fill="#FFFFFF" stroke="#2B2623" stroke-width="3.5"/>
+              <!-- Peanut butter content -->
+              <rect x="74" y="105" width="192" height="305" rx="34" fill="#E8B068"/>
+              <path d="M74 180 Q170 140 266 185 L266 380 C266 398 250 410 232 410 L108 410 C90 410 74 398 74 380 Z" fill="#D89A50"/>
 
-            <!-- Main Product Label -->
-            <rect x="85" y="145" width="170" height="190" rx="20" fill="#FBF8F3" stroke="#2B2623" stroke-width="2.5"/>
-            
-            <!-- Label Brand Header -->
-            <rect x="98" y="160" width="144" height="34" rx="8" fill="#FF7E67"/>
-            <text x="170" y="182" fill="#FFFFFF" font-family="Outfit" font-size="14" font-weight="800" text-anchor="middle" letter-spacing="1">HAPPY HOURS</text>
+              <!-- Main Product Label -->
+              <rect x="85" y="145" width="170" height="190" rx="20" fill="#FBF8F3" stroke="#2B2623" stroke-width="2.5"/>
+              
+              <!-- Label Brand Header -->
+              <rect x="98" y="160" width="144" height="34" rx="8" fill="#FF7E67"/>
+              <text x="170" y="182" fill="#FFFFFF" font-family="Outfit" font-size="14" font-weight="800" text-anchor="middle" letter-spacing="1">HAPPY HOURS</text>
 
-            <!-- Product Descriptor -->
-            <text x="170" y="215" fill="#2B2623" font-family="Outfit" font-size="17" font-weight="800" text-anchor="middle">CRUNCHY</text>
-            <text x="170" y="232" fill="#6E675F" font-family="Plus Jakarta Sans" font-size="10" font-weight="700" text-anchor="middle">100% CLEAN PEANUTS</text>
-            
-            <!-- Front-of-pack Nutrition Callout Badge -->
-            <rect x="98" y="246" width="144" height="28" rx="7" fill="#E8F7EE" stroke="#48BB78" stroke-width="1.5"/>
-            <text x="170" y="264" fill="#15803D" font-family="Outfit" font-size="11" font-weight="800" text-anchor="middle">✓ 26G PROTEIN • 0% PALM OIL</text>
+              <!-- Product Descriptor -->
+              <text x="170" y="215" fill="#2B2623" font-family="Outfit" font-size="17" font-weight="800" text-anchor="middle">CRUNCHY</text>
+              <text x="170" y="232" fill="#6E675F" font-family="Plus Jakarta Sans" font-size="10" font-weight="700" text-anchor="middle">100% CLEAN PEANUTS</text>
+              
+              <!-- Front-of-pack Nutrition Callout Badge -->
+              <rect x="98" y="246" width="144" height="28" rx="7" fill="#E8F7EE" stroke="#48BB78" stroke-width="1.5"/>
+              <text x="170" y="264" fill="#15803D" font-family="Outfit" font-size="9" font-weight="800" text-anchor="middle">✓ 26G PROTEIN • 0% PALM OIL</text>
 
-            <!-- QR Code Section -->
-            <g transform="translate(142, 284)">
-              <rect x="0" y="0" width="56" height="42" rx="6" fill="#F3EFE6" stroke="#2B2623" stroke-width="1.2"/>
-              <!-- Mini QR Matrix -->
-              <rect x="6" y="6" width="10" height="10" fill="#2B2623"/>
-              <rect x="6" y="26" width="10" height="10" fill="#2B2623"/>
-              <rect x="40" y="6" width="10" height="10" fill="#2B2623"/>
-              <rect x="22" y="12" width="6" height="6" fill="#2B2623"/>
-              <rect x="22" y="24" width="8" height="8" fill="#2B2623"/>
-              <rect x="36" y="26" width="8" height="8" fill="#2B2623"/>
+              <!-- QR Code Section with Animated Scanning Laser -->
+              <g transform="translate(142, 284)">
+                <rect x="0" y="0" width="56" height="42" rx="6" fill="#F3EFE6" stroke="#2B2623" stroke-width="1.2"/>
+                <!-- Mini QR Matrix -->
+                <rect x="6" y="6" width="10" height="10" fill="#2B2623"/>
+                <rect x="6" y="26" width="10" height="10" fill="#2B2623"/>
+                <rect x="40" y="6" width="10" height="10" fill="#2B2623"/>
+                <rect x="22" y="12" width="6" height="6" fill="#2B2623"/>
+                <rect x="22" y="24" width="8" height="8" fill="#2B2623"/>
+                <rect x="36" y="26" width="8" height="8" fill="#2B2623"/>
+                <!-- Scanning Laser Line -->
+                <line class="anim-laser" x1="4" y1="4" x2="52" y2="4" stroke="#48BB78" stroke-width="2" stroke-linecap="round"/>
+              </g>
+
+              <!-- Big Colored Screw Top Lid -->
+              <rect x="88" y="30" width="164" height="52" rx="14" fill="#5C95FF" stroke="#2B2623" stroke-width="3.5"/>
+              <line x1="105" y1="42" x2="105" y2="70" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
+              <line x1="125" y1="42" x2="125" y2="70" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
+              <line x1="145" y1="42" x2="145" y2="70" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
+              <line x1="165" y1="42" x2="165" y2="70" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
+              <line x1="185" y1="42" x2="185" y2="70" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
+              <line x1="205" y1="42" x2="205" y2="70" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
+              <line x1="225" y1="42" x2="225" y2="70" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
             </g>
 
-            <!-- Big Colored Screw Top Lid -->
-            <rect x="88" y="30" width="164" height="52" rx="14" fill="#5C95FF" stroke="#2B2623" stroke-width="3.5"/>
-            <line x1="105" y1="42" x2="105" y2="70" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
-            <line x1="125" y1="42" x2="125" y2="70" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
-            <line x1="145" y1="42" x2="145" y2="70" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
-            <line x1="165" y1="42" x2="165" y2="70" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
-            <line x1="185" y1="42" x2="185" y2="70" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
-            <line x1="205" y1="42" x2="205" y2="70" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
-            <line x1="225" y1="42" x2="225" y2="70" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
-
-            <!-- Engineering Leader Lines to Cards -->
-            <!-- Top-Left pointer to lid -->
-            <path d="M88 56 L30 56" stroke="#5C95FF" stroke-width="2" stroke-dasharray="3 3"/>
-            <circle cx="88" cy="56" r="4" fill="#5C95FF"/>
-
-            <!-- Bottom-Left pointer to brand -->
-            <path d="M98 177 L30 200" stroke="#FF7E67" stroke-width="2" stroke-dasharray="3 3"/>
-            <circle cx="98" cy="177" r="4" fill="#FF7E67"/>
-
-            <!-- Top-Right pointer to nutrition -->
-            <path d="M242 260 L310 210" stroke="#48BB78" stroke-width="2" stroke-dasharray="3 3"/>
-            <circle cx="242" cy="260" r="4" fill="#48BB78"/>
-
-            <!-- Bottom-Right pointer to QR -->
-            <path d="M198 305 L310 320" stroke="#F6C843" stroke-width="2" stroke-dasharray="3 3"/>
-            <circle cx="198" cy="305" r="4" fill="#F6C843"/>
+            <!-- Engineering Leader Lines to Cards (Streaming Dashes) -->
           </svg>
         </div>
 
@@ -1148,7 +1453,7 @@
             </p>
           </div>
 
-          <div class="blueprint-callout-card" style="border-left: 4px solid var(--pastel-yellow); margin-top: 24px;">
+          <div class="blueprint-callout-card" style="border-left: 4px solid var(--pastel-yellow);">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
               <span class="slide-pill pill-yellow" style="font-size: 9px; padding: 2px 8px;">SPEC 04</span>
               <i class="fa-solid fa-qrcode" style="color: #B45309;"></i>
@@ -1172,7 +1477,7 @@
         <div class="slide-pill pill-green">Omnichannel Go-To-Market</div>
         <h2 class="slide-title">Tri-Tier Hyperlocal &amp; Quick-Commerce Saturation</h2>
       </div>
-      <div class="slide-pill pill-coral">
+      <div class="slide-pill pill-coral anim-pulse">
         <i class="fa-solid fa-store"></i> 500M School &amp; Community Radius
       </div>
     </div>
@@ -1200,7 +1505,7 @@
             </p>
             <ul class="warm-bullet-list">
               <li><strong>7–10 AM Breakfast Carousel:</strong> Dominating peak lunch packing window.</li>
-              <li><strong>Checkout Basket Upsell:</strong> One-tap auto-prompt when buying bread, eggs, or milk.</li>
+              <li><strong>Checkout Basket Upsell:</strong> Auto-prompt when buying bread, eggs, or milk.</li>
             </ul>
           </div>
 
@@ -1228,9 +1533,9 @@
           </div>
         </div>
 
-        <!-- Center: 500m Hyperlocal Radius Radar Pod -->
+        <!-- Center: 500m Hyperlocal Radius Radar Pod with Continuous Rotating Beam -->
         <div class="radar-center-pod">
-          <span class="slide-pill pill-yellow" style="margin-bottom: 8px;">
+          <span class="slide-pill pill-yellow" style="margin-bottom: 8px; position: unset;">
             <i class="fa-solid fa-radar"></i> HYPERLOCAL SATURATION
           </span>
           <h3 style="font-size: 20px; margin-bottom: 4px;">The 500-Meter Core</h3>
@@ -1238,40 +1543,71 @@
             High-density neighbourhood capture around schools, apartment gates, and milk distribution hubs.
           </p>
 
-          <!-- SVG Vector Radar Graphic -->
+          <!-- SVG Vector Radar Graphic with Live Rotating Beam -->
           <div class="radar-svg-ring">
-            <svg width="260" height="260" viewBox="0 0 260 260" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <!-- Concentric Rings -->
+            <svg width="270" height="270" viewBox="0 0 260 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Concentric Radar Rings -->
               <circle cx="130" cy="130" r="120" stroke="#E2DCD2" stroke-width="1.5" stroke-dasharray="4 4"/>
               <circle cx="130" cy="130" r="85" stroke="#E2DCD2" stroke-width="1.5"/>
               <circle cx="130" cy="130" r="50" stroke="#F6C843" stroke-width="2" fill="rgba(246, 200, 67, 0.08)"/>
+              
+              <!-- Expanding wave animation -->
+              <circle cx="130" cy="130" r="20" stroke="#5C95FF" stroke-width="1.5" fill="none">
+                <animate attributeName="r" values="10;120" dur="4s" repeatCount="indefinite"/>
+                <animate attributeName="opacity" values="0.8;0" dur="4s" repeatCount="indefinite"/>
+              </circle>
+
+              <!-- Central Radar Sweep Beam (Rotating Animation) -->
+              <g class="anim-radar-beam">
+                <path d="M130 130 L230 70 A120 120 0 0 0 130 10 Z" fill="url(#radarGradient)" opacity="0.6"/>
+              </g>
+
+              <!-- Center Core Beacon -->
               <circle cx="130" cy="130" r="14" fill="#FF7E67" stroke="#FFFFFF" stroke-width="3"/>
 
-              <!-- Radar sweep beam -->
-              <path d="M130 130 L230 70 A120 120 0 0 0 130 10 Z" fill="url(#radarGradient)" opacity="0.6"/>
               <defs>
                 <radialGradient id="radarGradient" cx="130" cy="130" r="120" gradientUnits="userSpaceOnUse">
-                  <stop stop-color="#5C95FF" stop-opacity="0.5"/>
+                  <stop stop-color="#5C95FF" stop-opacity="0.6"/>
                   <stop offset="1" stop-color="#5C95FF" stop-opacity="0"/>
                 </radialGradient>
               </defs>
 
-              <!-- Radar blip points with labels -->
+              <!-- Radar blip points with pulsing ripples & labels -->
               <!-- School -->
-              <circle cx="80" cy="65" r="7" fill="#5C95FF" stroke="#FFFFFF" stroke-width="2"/>
-              <text x="80" y="52" fill="#2B2623" font-size="9" font-weight="700" text-anchor="middle">Schools</text>
+              <g transform="translate(80, 65)">
+                <circle cx="0" cy="0" r="12" fill="rgba(92, 149, 255, 0.3)">
+                  <animate attributeName="r" values="6;14;6" dur="2.2s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="0" cy="0" r="6" fill="#5C95FF" stroke="#FFFFFF" stroke-width="2"/>
+                <text x="0" y="-12" fill="#2B2623" font-size="9" font-weight="700" text-anchor="middle">Schools</text>
+              </g>
 
               <!-- Condos / Apartments -->
-              <circle cx="190" cy="85" r="7" fill="#48BB78" stroke="#FFFFFF" stroke-width="2"/>
-              <text x="190" y="74" fill="#2B2623" font-size="9" font-weight="700" text-anchor="middle">Condos</text>
+              <g transform="translate(190, 85)">
+                <circle cx="0" cy="0" r="12" fill="rgba(72, 187, 120, 0.3)">
+                  <animate attributeName="r" values="6;14;6" dur="2.5s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="0" cy="0" r="6" fill="#48BB78" stroke="#FFFFFF" stroke-width="2"/>
+                <text x="0" y="-12" fill="#2B2623" font-size="9" font-weight="700" text-anchor="middle">Condos</text>
+              </g>
 
               <!-- Milk Booth -->
-              <circle cx="75" cy="180" r="7" fill="#F472B6" stroke="#FFFFFF" stroke-width="2"/>
-              <text x="75" y="200" fill="#2B2623" font-size="9" font-weight="700" text-anchor="middle">Milk Booths</text>
+              <g transform="translate(75, 180)">
+                <circle cx="0" cy="0" r="12" fill="rgba(244, 114, 182, 0.3)">
+                  <animate attributeName="r" values="6;14;6" dur="2.8s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="0" cy="0" r="6" fill="#F472B6" stroke="#FFFFFF" stroke-width="2"/>
+                <text x="0" y="18" fill="#2B2623" font-size="9" font-weight="700" text-anchor="middle">Milk Booths</text>
+              </g>
 
               <!-- Kirana -->
-              <circle cx="185" cy="180" r="7" fill="#F6C843" stroke="#FFFFFF" stroke-width="2"/>
-              <text x="185" y="200" fill="#2B2623" font-size="9" font-weight="700" text-anchor="middle">Kiranas</text>
+              <g transform="translate(185, 180)">
+                <circle cx="0" cy="0" r="12" fill="rgba(246, 200, 67, 0.3)">
+                  <animate attributeName="r" values="6;14;6" dur="2s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="0" cy="0" r="6" fill="#F6C843" stroke="#FFFFFF" stroke-width="2"/>
+                <text x="0" y="18" fill="#2B2623" font-size="9" font-weight="700" text-anchor="middle">Kiranas</text>
+              </g>
             </svg>
           </div>
 
@@ -1289,7 +1625,7 @@
                   <i class="fa-solid fa-store"></i>
                 </div>
                 <div>
-                  <h4 style="font-size: 16px;">Kiranas &amp; Provision Stores</h4>
+                  <h4 style="font-size: 16px; white-space: nowrap;">Kiranas &amp; Provision Stores</h4>
                   <span style="font-size: 10.5px; color: var(--text-light); font-weight: 700;">DAILY PROVISIONS &amp; BAKERY HUBS</span>
                 </div>
               </div>
@@ -1312,8 +1648,8 @@
                   <i class="fa-solid fa-bottle-droplet"></i>
                 </div>
                 <div>
-                  <h4 style="font-size: 16px;">Aavin Milk Booths &amp; Bakeries</h4>
-                  <span style="font-size: 10.5px; color: var(--text-light); font-weight: 700;">6:00 AM MORNING RUN TOUCHPOINT</span>
+                  <h4 style="font-size: 16px; white-space: nowrap;">Aavin Milk Booths &amp; Bakeries</h4>
+                  <span style="font-size: 10.5px; color: var(--text-light); font-weight: 700; white-space: nowrap;">6:00 AM MORNING RUN TOUCHPOINT</span>
                 </div>
               </div>
               <span class="slide-pill pill-green">Morning Habit</span>
@@ -1338,12 +1674,15 @@
   <div class="slide-container" id="slide7">
     <div class="slide-header">
       <div class="header-left">
+      <div class="sub-hearder-top">
         <div class="slide-pill pill-pink">Marketing &amp; Growth Funnel</div>
+          <div class="slide-pill pill-yellow" style="position: unset;">
+          Zero-Risk Sampling ➔ Scan Reorder ➔ Community Proof
+          </div>
+      </div>
         <h2 class="slide-title">Trial-to-Loyalty Playbook: From First Taste to Daily Habit</h2>
       </div>
-      <div class="slide-pill pill-yellow">
-        Zero-Risk Sampling ➔ Scan Reorder ➔ Community Proof
-      </div>
+
     </div>
 
     <div class="content-area">
@@ -1366,17 +1705,16 @@
                 <text x="102" y="85" fill="#92400E" font-size="9" font-weight="800" text-anchor="middle">BREAD</text>
 
                 <!-- 30g Sachet Tied with Ribbon -->
-                <rect x="135" y="40" width="30" height="60" rx="6" fill="#FF7E67" stroke="#2B2623" stroke-width="2"/>
-                <text x="150" y="68" fill="#FFFFFF" font-size="7" font-weight="800" text-anchor="middle">FREE</text>
-                <text x="150" y="80" fill="#FFFFFF" font-size="6" font-weight="700" text-anchor="middle">PB</text>
+                <rect class="anim-hero-jar" x="135" y="40" width="30" height="60" rx="6" fill="#FF7E67" stroke="#2B2623" stroke-width="2"/>
+                <text class="anim-hero-jar" x="150" y="68" fill="#FFFFFF" font-size="7" font-weight="800" text-anchor="middle">FREE</text>
+                <text class="anim-hero-jar" x="150" y="80" fill="#FFFFFF" font-size="6" font-weight="700" text-anchor="middle">PB</text>
 
-                <!-- Gift Ribbon Bow -->
-                <path d="M120 70 Q135 60 145 70 Q135 80 120 70" fill="#F472B6" stroke="#2B2623" stroke-width="1.5"/>
+                <!-- Gift Ribbon Bow with Waggle -->
               </svg>
             </div>
 
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-              <span class="slide-pill pill-blue">Phase 01</span>
+              <span class="slide-pill pill-blue" style="position: unset;">Phase 01</span>
               <span style="font-size: 11px; font-weight: 700; color: #1D4ED8;">Mass Discovery</span>
             </div>
             <h3 style="font-size: 20px; margin-bottom: 6px;">Sampling Blitz</h3>
@@ -1410,11 +1748,11 @@
                 <rect x="94" y="42" width="10" height="10" fill="#FF7E67"/>
                 <rect x="76" y="60" width="10" height="10" fill="#FF7E67"/>
 
-                <!-- Laser Scan Line -->
-                <line x1="68" y1="56" x2="112" y2="56" stroke="#48BB78" stroke-width="2" stroke-linecap="round"/>
+                <!-- Live Scanning Laser Line -->
+                <line class="anim-laser" x1="68" y1="56" x2="112" y2="56" stroke="#48BB78" stroke-width="2.5" stroke-linecap="round"/>
 
                 <!-- Discount Popup Bubble -->
-                <g transform="translate(110, 45)">
+                <g class="anim-pulse" transform="translate(110, 45)">
                   <rect x="0" y="0" width="60" height="32" rx="8" fill="#F6C843" stroke="#2B2623" stroke-width="1.8"/>
                   <text x="30" y="15" fill="#2B2623" font-size="9" font-weight="800" text-anchor="middle">10% OFF</text>
                   <text x="30" y="26" fill="#78350F" font-size="7" font-weight="700" text-anchor="middle">+ RECIPES</text>
@@ -1423,12 +1761,12 @@
             </div>
 
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-              <span class="slide-pill pill-coral">Phase 02</span>
+              <span class="slide-pill pill-coral" style="position: unset;">Phase 02</span>
               <span style="font-size: 11px; font-weight: 700; color: #C2410C;">Digital Retention</span>
             </div>
             <h3 style="font-size: 20px; margin-bottom: 6px;">QR Conversion Funnel</h3>
             <p style="font-size: 13px; color: var(--text-muted); line-height: 1.45;">
-              Every sample packet delivers a instant QR scan to unlock a 10% next-order coupon, 60-second South Indian tiffin recipe hacks, and loyalty perks.
+              Every sample packet delivers an instant QR scan to unlock a 10% next-order coupon, 60-second South Indian tiffin recipe hacks, and loyalty perks.
             </p>
           </div>
 
@@ -1446,8 +1784,12 @@
               <svg width="180" height="130" viewBox="0 0 180 130" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <!-- Camera viewfinder frame -->
                 <rect x="25" y="18" width="130" height="94" rx="12" fill="#FFFFFF" stroke="#2B2623" stroke-width="2"/>
-                <circle cx="38" cy="30" r="4" fill="#EF4444"/>
-                <text x="48" y="33" fill="#EF4444" font-size="8" font-weight="700">REC</text>
+                
+                <!-- Blinking REC Indicator -->
+                <g class="anim-rec">
+                  <circle cx="38" cy="30" r="4" fill="#EF4444"/>
+                  <text x="48" y="33" fill="#EF4444" font-size="8" font-weight="700">REC</text>
+                </g>
 
                 <!-- Kid Lunchbox with PB Toast -->
                 <rect x="42" y="55" width="55" height="42" rx="8" fill="#FCE7F3" stroke="#2B2623" stroke-width="1.5"/>
@@ -1460,16 +1802,15 @@
                 <path d="M110 88 C110 74 140 74 140 88 Z" fill="#48BB78" stroke="#2B2623" stroke-width="1.5"/>
                 <path d="M116 42 C120 36 130 36 134 42" stroke="#2B2623" stroke-width="2"/>
 
-                <!-- Heart Like Notification -->
-                <g transform="translate(130, 25)">
-                  <circle cx="10" cy="10" r="10" fill="#F472B6"/>
+                <!-- Floating Heart Like Reaction with micro animation -->
+                <g class="anim-heart" transform="translate(130, 25)">
                   <path d="M10 7 L7 10 L10 14 L13 10 Z" fill="#FFFFFF"/>
                 </g>
               </svg>
             </div>
 
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-              <span class="slide-pill pill-green">Phase 03</span>
+              <span class="slide-pill pill-green" style="position: unset;">Phase 03</span>
               <span style="font-size: 11px; font-weight: 700; color: #15803D;">Social Advocacy</span>
             </div>
             <h3 style="font-size: 20px; margin-bottom: 6px;">Hyperlocal Influencers</h3>
@@ -1487,5 +1828,114 @@
     </div>
   </div>
 
+  <!-- ============================================================
+       FLOATING INTERACTIVE NAVIGATION DOCK & SCRIPT
+       ============================================================ -->
+  <div class="presentation-dock">
+    <button class="dock-btn" onclick="prevSlide()" title="Previous Slide (Left Arrow)">
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+
+    <div style="display: flex; gap: 6px; align-items: center;">
+      <button class="dock-jump-btn active" onclick="goToSlide(1)">1</button>
+      <button class="dock-jump-btn" onclick="goToSlide(2)">2</button>
+      <button class="dock-jump-btn" onclick="goToSlide(3)">3</button>
+      <button class="dock-jump-btn" onclick="goToSlide(4)">4</button>
+      <button class="dock-jump-btn" onclick="goToSlide(5)">5</button>
+      <button class="dock-jump-btn" onclick="goToSlide(6)">6</button>
+      <button class="dock-jump-btn" onclick="goToSlide(7)">7</button>
+    </div>
+
+    <button class="dock-btn" onclick="nextSlide()" title="Next Slide (Right Arrow)">
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
+
+    <div style="width: 1px; height: 18px; background: var(--border-medium); margin: 0 4px;"></div>
+
+    <button class="dock-btn" id="playBtn" onclick="toggleAutoPlay()" title="Toggle Auto-Play Slideshow">
+      <i class="fa-solid fa-play" id="playIcon"></i>
+    </button>
+  </div>
+
+  <script>
+    let currentSlide = 1;
+    const totalSlides = 7;
+    let autoPlayInterval = null;
+
+    function updateDock(slideNum) {
+      currentSlide = slideNum;
+      document.querySelectorAll('.dock-jump-btn').forEach((btn, idx) => {
+        if (idx + 1 === slideNum) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    }
+
+    function goToSlide(num) {
+      if (num < 1) num = 1;
+      if (num > totalSlides) num = totalSlides;
+      const target = document.getElementById('slide' + num);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        updateDock(num);
+      }
+    }
+
+    function nextSlide() {
+      let next = currentSlide + 1;
+      if (next > totalSlides) next = 1;
+      goToSlide(next);
+    }
+
+    function prevSlide() {
+      let prev = currentSlide - 1;
+      if (prev < 1) prev = totalSlides;
+      goToSlide(prev);
+    }
+
+    function toggleAutoPlay() {
+      const playIcon = document.getElementById('playIcon');
+      if (autoPlayInterval) {
+        clearInterval(autoPlayInterval);
+        autoPlayInterval = null;
+        playIcon.classList.remove('fa-pause');
+        playIcon.classList.add('fa-play');
+      } else {
+        autoPlayInterval = setInterval(() => {
+          nextSlide();
+        }, 5000);
+        playIcon.classList.remove('fa-play');
+        playIcon.classList.add('fa-pause');
+      }
+    }
+
+    // Keyboard navigation (Left and Right Arrow keys)
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'PageDown') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        prevSlide();
+      }
+    });
+
+    // IntersectionObserver to sync current slide state on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          const num = parseInt(id.replace('slide', ''));
+          if (!isNaN(num)) {
+            updateDock(num);
+          }
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.slide-container').forEach(slide => {
+      observer.observe(slide);
+    });
+  </script>
 </body>
 </html>
